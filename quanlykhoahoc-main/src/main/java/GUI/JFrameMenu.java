@@ -62,7 +62,7 @@ public class JFrameMenu extends javax.swing.JFrame {
         });
         jMenu1.add(menuitemCM);
 
-        menuitemSM.setText("Quản lý học viên");
+        menuitemSM.setText("Quản lý sinh viên");
         menuitemSM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuitemSMActionPerformed(evt);

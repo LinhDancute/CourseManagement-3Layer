@@ -33,17 +33,15 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        textStudentID = new javax.swing.JTextField();
         textEnrollmentID = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        comboboxLectureName = new javax.swing.JComboBox<>();
+        comboboxCourseName = new javax.swing.JComboBox<>();
+        textLectureID = new javax.swing.JTextField();
         textCourseID = new javax.swing.JTextField();
-        buttonLectureList = new javax.swing.JButton();
-        buttonCourseList = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
-        comboboxFind = new javax.swing.JComboBox<>();
         buttonFind = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -68,7 +66,7 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
 
         jLabel5.setText("Mã phân công");
 
-        jLabel6.setText("Mã giảng  viên");
+        jLabel6.setText("Tên giảng  viên");
 
         textEnrollmentID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,22 +74,11 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
             }
         });
 
-        jLabel8.setText("Mã khóa học");
+        jLabel8.setText("Tên khóa học");
 
-        textCourseID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCourseIDActionPerformed(evt);
-            }
-        });
+        comboboxLectureName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        buttonLectureList.setText("Danh sách giảng viên");
-        buttonLectureList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonLectureListActionPerformed(evt);
-            }
-        });
-
-        buttonCourseList.setText("Danh sách khóa học");
+        comboboxCourseName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -105,15 +92,15 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
                     .addComponent(jLabel8))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textEnrollmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(textCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(buttonCourseList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(textStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(buttonLectureList))
-                    .addComponent(textEnrollmentID))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(comboboxLectureName, javax.swing.GroupLayout.Alignment.LEADING, 0, 180, Short.MAX_VALUE)
+                            .addComponent(comboboxCourseName, javax.swing.GroupLayout.Alignment.LEADING, 0, 180, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textLectureID)
+                            .addComponent(textCourseID, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -125,18 +112,16 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
                     .addComponent(textEnrollmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(buttonLectureList))
-                .addGap(15, 15, 15)
+                    .addComponent(comboboxLectureName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textLectureID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(buttonCourseList))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(comboboxCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
-
-        jLabel3.setText("Thông tin tìm kiếm");
 
         jLabel4.setText("Nhập tìm kiếm");
 
@@ -146,8 +131,6 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
             }
         });
 
-        comboboxFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã phân công", "Mã giảng viên", "Mã khóa học", " " }));
-
         buttonFind.setText("Lọc");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -155,16 +138,12 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(buttonFind)
+                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -172,10 +151,8 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonFind))
                 .addContainerGap())
         );
@@ -184,13 +161,13 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
 
         tableStudentGrade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã phân công", "Mã giảng viên", "Mã khóa học"
+                "STT", "Mã phân công", "Mã giảng viên", "Tên giảng viên", "Mã khóa học", "Tên khóa học"
             }
         ));
         jScrollPane1.setViewportView(tableStudentGrade);
@@ -221,6 +198,11 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
         });
 
         buttonClose.setText("Đóng");
+        buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -254,7 +236,7 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(461, Short.MAX_VALUE)
+                .addContainerGap(468, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +259,7 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(291, Short.MAX_VALUE)
+                .addContainerGap(294, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,42 +298,29 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
         // TODO add your handling code here:
     }//GEN-LAST:event_textEnrollmentIDActionPerformed
 
-    private void textCourseIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCourseIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textCourseIDActionPerformed
-
     private void textFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFindActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFindActionPerformed
-
-    private void buttonLectureListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLectureListActionPerformed
-//        JInternalFrameLecturesList lecturesList = new JInternalFrameLecturesList();
-//        JFrameMenu menu = new JFrameMenu();
-//        javax.swing.JDesktopPane desktopShow = menu.getDesktopShow();
-//        desktopShow.add(lecturesList);
-//        lecturesList.setVisible(true);
-
-        JInternalFrameLecturesList lecturesList;
-        
-    }//GEN-LAST:event_buttonLectureListActionPerformed
 
     private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRefreshActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonRefreshActionPerformed
 
+    private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_buttonCloseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DesktopDetails;
     private javax.swing.JButton buttonClose;
-    private javax.swing.JButton buttonCourseList;
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonFind;
-    private javax.swing.JButton buttonLectureList;
     private javax.swing.JButton buttonRefresh;
     private javax.swing.JButton buttonSave;
-    private javax.swing.JComboBox<String> comboboxFind;
+    private javax.swing.JComboBox<String> comboboxCourseName;
+    private javax.swing.JComboBox<String> comboboxLectureName;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -366,6 +335,6 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
     private javax.swing.JTextField textCourseID;
     private javax.swing.JTextField textEnrollmentID;
     private javax.swing.JTextField textFind;
-    private javax.swing.JTextField textStudentID;
+    private javax.swing.JTextField textLectureID;
     // End of variables declaration//GEN-END:variables
 }

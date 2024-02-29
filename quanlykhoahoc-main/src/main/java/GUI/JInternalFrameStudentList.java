@@ -89,6 +89,11 @@ public class JInternalFrameStudentList extends javax.swing.JInternalFrame {
         );
 
         buttonClose.setText("Đóng");
+        buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCloseActionPerformed(evt);
+            }
+        });
 
         tableDepartmentList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,6 +151,10 @@ public class JInternalFrameStudentList extends javax.swing.JInternalFrame {
     private void comboboxFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxFindActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboboxFindActionPerformed
+
+    private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_buttonCloseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

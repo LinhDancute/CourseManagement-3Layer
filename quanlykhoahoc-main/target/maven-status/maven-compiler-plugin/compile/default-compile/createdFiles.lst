@@ -1,6 +1,8 @@
 GUI\JInternalFrameLecturesList$2.class
 GUI\JFrameMenu$8.class
 DAL\DBConnect\MyDatabaseManager.class
+GUI\JInternalFrameGradeDetails.class
+GUI\JInternalFrameStudentGradeManagement$5.class
 GUI\JInternalFrameStudentManagement$1.class
 DAL\DepartmentDAL.class
 DTO\DepartmentDTO.class
@@ -42,9 +44,9 @@ GUI\JFrameMenu$6.class
 GUI\JInternalFrameStudentGradeManagement.class
 GUI\JInternalFrameCourseInstructorManagement$1.class
 GUI\JInternalFrameDepartmentList$2.class
+GUI\JInternalFrameStudentGradeManagement$7.class
 GUI\JInternalFrameCourseList$3.class
 GUI\JInternalFrameStudentList$2.class
-GUI\JInternalFrameCourseInstructorManagement$4.class
 GUI\JFrameMenu$7.class
 DTO\StudentGradeDTO.class
 GUI\JFrameMenu$2.class
@@ -52,9 +54,9 @@ GUI\JInternalFrameCourseInstructorManagement$2.class
 GUI\JInternalFrameLecturesManagement$3.class
 GUI\JInternalFrameStudentList.class
 com\mycompany\quanlykhoahoc\main\QuanlykhoahocMain.class
+GUI\JInternalFrameStudentGradeManagement$6.class
 GUI\JFrameMenu$5.class
 GUI\JInternalFrameCourseList.class
-GUI\JInternalFrameCourseInstructorManagement$5.class
 DTO\CourseInstructorDTO.class
 GUI\JInternalFrameStudentList$1.class
 GUI\JInternalFrameCourseList$2.class

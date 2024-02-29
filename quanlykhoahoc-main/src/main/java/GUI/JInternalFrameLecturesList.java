@@ -101,6 +101,11 @@ public class JInternalFrameLecturesList extends javax.swing.JInternalFrame {
         );
 
         buttonClose.setText("Đóng");
+        buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,6 +151,10 @@ public class JInternalFrameLecturesList extends javax.swing.JInternalFrame {
     private void comboboxFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxFindActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboboxFindActionPerformed
+
+    private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_buttonCloseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
