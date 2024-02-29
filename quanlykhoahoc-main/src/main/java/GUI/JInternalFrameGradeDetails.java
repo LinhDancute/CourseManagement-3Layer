@@ -41,13 +41,13 @@ public class JInternalFrameGradeDetails extends javax.swing.JInternalFrame {
 
         tableGradeDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã sinh viên", "Họ sinh viên", "Tên sinh viên", "Chuyên cần", "Giữa kì", "Cuối kì"
+                "STT", "Mã sinh viên", "Họ sinh viên", "Tên sinh viên", "Điểm"
             }
         ));
         jScrollPane1.setViewportView(tableGradeDetails);
