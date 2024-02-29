@@ -90,9 +90,4 @@ public class ConnectXamppMySQL {
             this.connect=null;
         }
     }
-    
-    
-    
-    
-    
 }

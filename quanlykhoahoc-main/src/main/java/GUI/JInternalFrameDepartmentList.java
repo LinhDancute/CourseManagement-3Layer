@@ -5,10 +5,7 @@
 package GUI;
 
 import BLL.DepartmentBLL;
-import DAL.DBConnect.ConnectXamppMySQL;
 import DTO.DepartmentDTO;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -18,15 +15,16 @@ import javax.swing.table.DefaultTableModel;
  * @author ACER
  */
 public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
+
     private DepartmentBLL departmentBLL;
     DefaultTableModel model = new DefaultTableModel();
-    
+
     public JInternalFrameDepartmentList() {
         initComponents();
         departmentBLL = new DepartmentBLL();
         loadData();
     }
-    
+
     public void outModel(DefaultTableModel model, ArrayList<DepartmentDTO> listDepartment) {
         Vector row;
         model.setRowCount(0);
@@ -41,9 +39,10 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
         }
         tableDepartmentList.setModel(model);
     }
-    
+
     private void loadData() {
         try {
+            DepartmentBLL departmentBLL = new DepartmentBLL();
             Vector header = new Vector();
             header.add("Mã khoa");
             header.add("Tên khoa");
@@ -55,13 +54,12 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
                 model = new DefaultTableModel(header, 0);
             }
 
-            ArrayList<DepartmentDTO> listDepartment = departmentBLL.getListDepartment(departmentBLL);
-            if (listDepartment != null) {
-                outModel(model, listDepartment);
-                tableDepartmentList.setModel(model);
-            } else {
-                System.out.println("dữ liệu trống");
+            if (departmentBLL.getListDepartment() == null) {
+                departmentBLL.getAllDepartments();
             }
+            ArrayList<DepartmentDTO> listDepartment = new ArrayList<>();
+            listDepartment = departmentBLL.getListDepartment();
+            outModel(model, listDepartment);// truyền data vào table
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,8 +76,6 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        comboboxFind = new javax.swing.JComboBox<>();
         buttonFind = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
@@ -89,11 +85,12 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
 
         jLabel1.setText("DANH SÁCH KHOA");
 
-        jLabel3.setText("Thông tin tìm kiếm");
-
-        comboboxFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã khoa", "Tên khoa", "Ngân sách", "Ngày bắt đầu", "Quản trị viên", " " }));
-
         buttonFind.setText("Lọc");
+        buttonFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFindActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Nhập tìm kiếm");
 
@@ -109,13 +106,9 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboboxFind, 0, 130, Short.MAX_VALUE)
-                    .addComponent(textFind))
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(buttonFind)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -125,15 +118,10 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonFind)))
-                .addGap(280, 280, 280))
+                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonFind)
+                    .addComponent(jLabel4))
+                .addGap(223, 223, 223))
         );
 
         tableDepartmentList.setModel(new javax.swing.table.DefaultTableModel(
@@ -161,33 +149,34 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(185, 185, 185)
+                                .addComponent(buttonClose))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(186, 186, 186)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(168, 168, 168))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addComponent(buttonClose)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonClose)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,13 +190,15 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
         setVisible(false);
     }//GEN-LAST:event_buttonCloseActionPerformed
 
+    private void buttonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFindActionPerformed
+        
+    }//GEN-LAST:event_buttonFindActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonFind;
-    private javax.swing.JComboBox<String> comboboxFind;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

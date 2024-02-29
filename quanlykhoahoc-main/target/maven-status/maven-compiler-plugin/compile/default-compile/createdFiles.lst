@@ -21,6 +21,7 @@ GUI\JInternalFrameLecturesList.class
 GUI\JInternalFrameStudentGradeManagement$4.class
 GUI\JInternalFrameStudentManagement$2.class
 DAL\DBConnect\ConnectXamppMySQL.class
+GUI\JFrameMenu$11.class
 GUI\JInternalFrameCourseManagement.class
 GUI\JInternalFrameCourseManagement$1.class
 GUI\JInternalFrameCourseList$1.class
@@ -30,7 +31,6 @@ GUI\JInternalFrameLecturesList$3.class
 GUI\JFrameMenu.class
 GUI\JInternalFrameLecturesManagement.class
 GUI\JInternalFrameCourseManagement$4.class
-GUI\JInternalFrameStudentList$3.class
 GUI\JInternalFrameLecturesManagement$1.class
 GUI\JInternalFrameCourseInstructorManagement$3.class
 DTO\CourseOnsiteDTO.class
