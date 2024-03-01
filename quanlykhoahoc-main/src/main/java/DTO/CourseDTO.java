@@ -4,12 +4,12 @@ public class CourseDTO {
     public int CourseID;
     public String Title;
     public int Credits;
-    public int DepartmentID;
+    public String DepartmentID;
 
     public CourseDTO() {
     }
 
-    public CourseDTO(int CourseID, String title, int Credits, int DepartmentID) {
+    public CourseDTO(int CourseID, String title, int Credits, String DepartmentID) {
         this.CourseID = CourseID;
         this.Title = title;
         this.Credits = Credits;
@@ -40,11 +40,11 @@ public class CourseDTO {
         this.Credits = Credits;
     }
 
-    public int getDepartmentID() {
+    public String getDepartmentID() {
         return DepartmentID;
     }
 
-    public void setDepartmentID(int DepartmentID) {
+    public void setDepartmentID(String DepartmentID) {
         this.DepartmentID = DepartmentID;
     }
 

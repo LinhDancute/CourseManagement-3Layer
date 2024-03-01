@@ -1,7 +1,6 @@
-D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\CourseOnlineDTO.java
+D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DAL\CourseDAL.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\GUI\JInternalFrameStudentManagement.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\BLL\DepartmentBLL.java
-D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\CourseOnsiteDTO.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\GUI\JInternalFrameStudentList.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\StudentGradeDTO.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\GUI\JInternalFrameLecturesManagement.java
@@ -9,12 +8,15 @@ D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseMana
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DAL\DBConnect\ConnectXamppMySQL.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DAL\DBConnect\MyDatabaseManager.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\GUI\JInternalFrameCourseList.java
+D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\OnlineCourseDTO.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\GUI\JFrameMenu.java
+D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\BLL\CourseBLL.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\GUI\JInternalFrameGradeDetails.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\CourseInstructorDTO.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\com\mycompany\quanlykhoahoc\main\QuanlykhoahocMain.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\DepartmentDTO.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\CourseDTO.java
+D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\OnsiteCourseDTO.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\GUI\JInternalFrameLecturesList.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\OfficeAssignmentDTO.java
 D:\Studying\Junior\Semester 2\Xay dung phan mem theo mo hinh phan lop\CourseManagement_BTL01\quanlykhoahoc-main\src\main\java\DTO\PersonDTO.java

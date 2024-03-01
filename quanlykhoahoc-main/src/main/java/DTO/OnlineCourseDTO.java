@@ -1,18 +1,18 @@
 package DTO;
-public class CourseOnlineDTO extends CourseDTO {
+public class OnlineCourseDTO extends CourseDTO {
     public int CourseID;
     public String url;
 
-    public CourseOnlineDTO() {
+    public OnlineCourseDTO() {
         super();
     }
 
-    public CourseOnlineDTO(String url) {
+    public OnlineCourseDTO(String url) {
         super();
         this.url = url;
     }
     
-     public CourseOnlineDTO(int CourseID, String title, int Credits, int DepartmentID,String url) {
+     public OnlineCourseDTO(int CourseID, String title, int Credits, String DepartmentID,String url) {
         this.CourseID = CourseID;
         this.Title = title;
         this.Credits = Credits;
@@ -35,11 +35,11 @@ public class CourseOnlineDTO extends CourseDTO {
         this.Credits = Credits;
     }
 
-    public int getDepartmentID() {
+    public String getDepartmentID() {
         return DepartmentID;
     }
 
-    public void setDepartmentID(int DepartmentID) {
+    public void setDepartmentID(String DepartmentID) {
         this.DepartmentID = DepartmentID;
     }
     

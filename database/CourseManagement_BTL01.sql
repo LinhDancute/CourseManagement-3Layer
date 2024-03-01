@@ -1,8 +1,4 @@
-﻿CREATE DATABASE CourseManagement
-USE CourseManagement
-
---NHỮNG BẢNG THÔNG TIN CƠ BẢN
-CREATE TABLE Department (
+﻿CREATE TABLE Department (
     DepartmentID VARCHAR(255) PRIMARY KEY NOT NULL,
     Name VARCHAR(255) NOT NULL,
 	Budget VARCHAR(255) NOT NULL,
@@ -11,25 +7,25 @@ CREATE TABLE Department (
 );
 
 CREATE TABLE OnlineCourse (
-    CourseID VARCHAR(255) PRIMARY KEY NOT NULL,
+    CourseID INT PRIMARY KEY NOT NULL,
     URL VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE OnsiteCourse (
-    CourseID VARCHAR(255) PRIMARY KEY NOT NULL,
+    CourseID INT PRIMARY KEY NOT NULL,
     Location VARCHAR(255) NOT NULL,
 	Days DATE,
 	Time TIME
 );
 
 CREATE TABLE OfficeAssignment (
-    InstructorID VARCHAR(255) PRIMARY KEY NOT NULL,
+    InstructorID INT PRIMARY KEY NOT NULL,
     Location VARCHAR(255) NOT NULL,
 	Timestamp TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Person (
-    PersonID VARCHAR(255) PRIMARY KEY NOT NULL,
+    PersonID INT AUTO_INCREMENT PRIMARY KEY,
     LastName VARCHAR(255) NOT NULL,
 	FirstName VARCHAR(255) NOT NULL,
 	HireDate DATE NOT NULL,
@@ -37,49 +33,54 @@ CREATE TABLE Person (
 );
 
 CREATE TABLE StudentGrade (
-    EnrollmentID VARCHAR(255) PRIMARY KEY NOT NULL,
-    CourseID VARCHAR(255) NOT NULL,
-	StudentID VARCHAR(255) NOT NULL,
-	Grade VARCHAR(255) NOT NULL
+    EnrollmentID INT AUTO_INCREMENT PRIMARY KEY,
+    CourseID INT NOT NULL,
+	StudentID INT NOT NULL,
+	Grade DOUBLE NOT NULL
 );
 
 CREATE TABLE Course (
-    CourseID VARCHAR(255) PRIMARY KEY NOT NULL,
+    CourseID INT AUTO_INCREMENT PRIMARY KEY,
     Title VARCHAR(255) NOT NULL,
 	Creadits VARCHAR(255) NOT NULL,
 	DepartmentID VARCHAR(255) NOT NULL
 );
 
---CourseInstructor sinh ra từ mqh many-many 
+ 
 CREATE TABLE CourseInstructor (
-    CourseID VARCHAR(255) NOT NULL,
-    PersonID VARCHAR(255) NOT NULL,
+    CourseID INT NOT NULL,
+    PersonID INT NOT NULL,
 	PRIMARY KEY (CourseID, PersonID)
 );
 
---Liên kết bảng
+
 ALTER TABLE OnlineCourse ADD CONSTRAINT FK_Course_OnlineCourse FOREIGN KEY (CourseID) REFERENCES Course(CourseID);
 ALTER TABLE OnsiteCourse ADD CONSTRAINT FK_Course_OnsiteCourse FOREIGN KEY (CourseID) REFERENCES Course(CourseID);
 ALTER TABLE OfficeAssignment ADD CONSTRAINT FK_Person_OfficeAssignment FOREIGN KEY (InstructorID) REFERENCES Person(PersonID);
 
---relationship many-many Course-Person thông qua CourseInstructor
+
 ALTER TABLE CourseInstructor ADD CONSTRAINT FK_CourseID_CourseInstructor FOREIGN KEY (CourseID) REFERENCES Course(CourseID);
 ALTER TABLE CourseInstructor ADD CONSTRAINT FK_PersonID_CourseInstructor FOREIGN KEY (PersonID) REFERENCES Person(PersonID);
 
---relationship many-one Person-StudentGrade
+
 ALTER TABLE StudentGrade ADD CONSTRAINT FK_Person_StudentGrade FOREIGN KEY (StudentID) REFERENCES Person(PersonID);
 
---relationship many-one Course-StudentGrade
 ALTER TABLE StudentGrade ADD CONSTRAINT FK_Course_StudentGrade FOREIGN KEY (CourseID) REFERENCES Course(CourseID);
 
---relationship many-one Department-Course
 ALTER TABLE Course ADD CONSTRAINT FK_Department_Course FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID);
 
 
---INSERT DATA
-INSERT INTO [Department] ([DepartmentID], [Name], [Budget], [StartDate], [Administrator])
+INSERT INTO Department (DepartmentID, Name, Budget, StartDate, Administrator)
 VALUES
 ('CNTT', 'Cong nghe thong tin', 350000, '2017-09-01 00:00:00', 2),
 ('KT', 'Ke toan', 120000, '2010-09-01 00:00:00', 6),
 ('QTKD', 'Quan tri kinh doanh', 200000, '2020-09-01 00:00:00', 4),
 ('SPA', 'Su pham anh', 250000, '2015-09-01 00:00:00', 3);
+
+INSERT INTO person (Firstname, Lastname, HireDate, EnrollmentDate) 
+VALUES 
+('Nguyen', 'Van An', NULL, '2017-09-01 13:00:00'), 
+('Hoang', 'Quoc Binh', NULL, '2017-09-01 07:00:00'), 
+('Luu', 'Van Hoa', NULL, '2017-09-01 07:20:00'), 
+('Nguyen', 'Thi Huong', NULL, '2017-09-01 08:00:00'), 
+('Nguyen', 'Hoang Long', NULL, '2017-09-01 14:00:00');

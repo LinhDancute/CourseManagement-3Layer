@@ -6,6 +6,7 @@ GUI\JInternalFrameStudentGradeManagement$5.class
 GUI\JInternalFrameStudentManagement$1.class
 DAL\DepartmentDAL.class
 DTO\DepartmentDTO.class
+BLL\CourseBLL.class
 GUI\JFrameMenu$1.class
 GUI\JFrameMenu$10.class
 GUI\JInternalFrameStudentGradeManagement$1.class
@@ -24,6 +25,7 @@ DAL\DBConnect\ConnectXamppMySQL.class
 GUI\JFrameMenu$11.class
 GUI\JInternalFrameCourseManagement.class
 GUI\JInternalFrameCourseManagement$1.class
+DTO\OnsiteCourseDTO.class
 GUI\JInternalFrameCourseList$1.class
 GUI\JFrameMenu$9.class
 GUI\JInternalFrameStudentGradeManagement$2.class
@@ -32,13 +34,14 @@ GUI\JFrameMenu.class
 GUI\JInternalFrameLecturesManagement.class
 GUI\JInternalFrameCourseManagement$4.class
 GUI\JInternalFrameLecturesManagement$1.class
+GUI\JInternalFrameDepartmentList$3.class
+DAL\CourseDAL.class
 GUI\JInternalFrameCourseInstructorManagement$3.class
-DTO\CourseOnsiteDTO.class
 DAL\DBConnect\MyConnectUnit.class
 GUI\JInternalFrameStudentGradeManagement$8.class
 DTO\PersonDTO.class
 GUI\JFrameMenu$3.class
-DTO\CourseOnlineDTO.class
+DTO\OnlineCourseDTO.class
 DTO\OfficeAssignmentDTO.class
 GUI\JInternalFrameStudentManagement.class
 GUI\JInternalFrameStudentGradeManagement$3.class

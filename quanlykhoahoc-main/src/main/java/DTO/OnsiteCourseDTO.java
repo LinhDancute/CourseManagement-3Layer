@@ -3,16 +3,16 @@ package DTO;
 import java.sql.Time;
 import java.util.Date;
 
-public class CourseOnsiteDTO extends CourseDTO {
+public class OnsiteCourseDTO extends CourseDTO {
     public int CourseID;
     public String Location;
     public Date Days;
     public Time Time;
 
-    public CourseOnsiteDTO() {
+    public OnsiteCourseDTO() {
         super();
     }
-    public CourseOnsiteDTO(int CourseID, String title, int Credits, int DepartmentID,String Location, Date Days, Time Time) {
+    public OnsiteCourseDTO(int CourseID, String title, int Credits, String DepartmentID,String Location, Date Days, Time Time) {
         this.CourseID = CourseID;
         this.Title = title;
         this.Credits = Credits;
@@ -21,7 +21,7 @@ public class CourseOnsiteDTO extends CourseDTO {
         this.Days = Days;
         this.Time = Time;
     }
-    public CourseOnsiteDTO(int CourseID, String Location, Date Days, Time Time) {
+    public OnsiteCourseDTO(int CourseID, String Location, Date Days, Time Time) {
         super();
         this.CourseID = CourseID;
         this.Location = Location;
@@ -45,11 +45,11 @@ public class CourseOnsiteDTO extends CourseDTO {
         this.Credits = Credits;
     }
 
-    public int getDepartmentID() {
+    public String getDepartmentID() {
         return DepartmentID;
     }
 
-    public void setDepartmentID(int DepartmentID) {
+    public void setDepartmentID(String DepartmentID) {
         this.DepartmentID = DepartmentID;
     }
     
