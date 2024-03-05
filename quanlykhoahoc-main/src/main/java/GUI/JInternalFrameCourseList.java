@@ -146,7 +146,7 @@ public class JInternalFrameCourseList extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
     }//GEN-LAST:event_buttonCloseActionPerformed
 
     private void textFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFindActionPerformed

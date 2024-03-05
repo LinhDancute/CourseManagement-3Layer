@@ -19,7 +19,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuitemSM">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; h&#x1ecd;c vi&#xea;n"/>
+                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; sinh vi&#xea;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuitemSMActionPerformed"/>
@@ -86,6 +86,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuitemStudentListActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch &#x111;i&#x1ec3;m sinh vi&#xea;n"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

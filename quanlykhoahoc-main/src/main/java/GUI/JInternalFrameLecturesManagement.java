@@ -4,6 +4,20 @@
  */
 package GUI;
 
+import BLL.PersonBLL;
+import DTO.PersonDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author ACER
@@ -13,8 +27,75 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
     /**
      * Creates new form JInternalFrameLecturesManagement
      */
+    
+    // Khai báo một đối tượng StudentTable
+    private PersonTable lecturesTable;
+    
     public JInternalFrameLecturesManagement() {
         initComponents();
+        
+        // Khởi tạo đối tượng StudentTable
+        lecturesTable = new PersonTable();
+        
+        // Hiển thị dữ liệu sinh viên trong JTable
+        PersonTable.showDataLectures(tableLectures);
+        
+        // Thêm sự kiện lắng nghe cho JTable
+        tableLectures.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Lấy hàng được chọn
+                int row = tableLectures.getSelectedRow();
+                
+                // Kiểm tra nếu người dùng đã chọn một hàng
+                if (row >= 0) {
+                    // Lấy dữ liệu từ hàng được chọn
+                    String studentID = tableLectures.getValueAt(row, 1).toString();
+                    String firstName = tableLectures.getValueAt(row, 2).toString();
+                    String lastName = tableLectures.getValueAt(row, 3).toString();
+                    String hireDateStr = tableLectures.getValueAt(row, 4).toString();
+                    
+                    // Chuyển đổi ngày từ String sang Date
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date hireDate = null;
+                    try {
+                        hireDate = sdf.parse(hireDateStr);
+                    } catch (java.text.ParseException ex) {
+                        Logger.getLogger(JInternalFrameStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    // Hiển thị thông tin sinh viên lên các JTextField và JDateChooser
+                    textLectureID.setText(studentID);
+                    textFirstName.setText(firstName);
+                    textLastName.setText(lastName);
+                    dateHireDate.setDate(hireDate);
+                }
+            }
+        }); 
+        
+        // Đặt ActionListener cho textFind
+        textFind.addActionListener((ActionEvent e) -> {
+            filterTable();
+        });
+    }
+    
+     // Phương thức để lọc và hiển thị sinh viên dựa trên nội dung của textFind
+    private void filterTable() {
+        String keyword = textFind.getText().trim(); // Lấy từ khoá tìm kiếm từ textFind
+
+        // Kiểm tra nếu từ khoá không rỗng
+        if (!keyword.isEmpty()) {
+            DefaultTableModel model = (DefaultTableModel) tableLectures.getModel();
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+            tableLectures.setRowSorter(sorter);
+
+            // Thiết lập bộ lọc để lọc dữ liệu dựa trên từ khoá
+            RowFilter<DefaultTableModel, Object> rowFilter = RowFilter.regexFilter("(?i)" + keyword);
+            sorter.setRowFilter(rowFilter);
+        } else {
+            // Nếu từ khoá rỗng, hiển thị tất cả dữ liệu
+            tableLectures.setRowSorter(null);
+        }
     }
 
     /**
@@ -27,9 +108,6 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        comboboxFind = new javax.swing.JComboBox<>();
-        buttonFind = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -45,19 +123,12 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
         textLastName = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         dateHireDate = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        textLocation = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         buttonSave = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
         buttonRefresh = new javax.swing.JButton();
         buttonClose = new javax.swing.JButton();
-
-        jLabel3.setText("Thông tin tìm kiếm");
-
-        comboboxFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã giảng viên", "Họ giảng viên", "Tên giảng viên", "Ngày thuê", "Ngày ghi danh", " " }));
-
-        buttonFind.setText("Lọc");
+        buttonUpdate = new javax.swing.JButton();
 
         jLabel4.setText("Nhập tìm kiếm");
 
@@ -73,15 +144,9 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonFind)
+                .addComponent(textFind)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -89,11 +154,8 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonFind))
+                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -101,13 +163,13 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
 
         tableLectures.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã giảng viên", "Họ giảng viên", "Tên giảng viên", "Phòng", "Ngày thuê"
+                "STT", "Mã giảng viên", "Họ giảng viên", "Tên giảng viên", "Ngày thuê"
             }
         ));
         jScrollPane1.setViewportView(tableLectures);
@@ -132,6 +194,7 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
 
         jLabel7.setText("Tên giảng viên");
 
+        textLectureID.setEditable(false);
         textLectureID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textLectureIDActionPerformed(evt);
@@ -146,8 +209,6 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
 
         jLabel8.setText("Ngày thuê");
 
-        jLabel2.setText("Phòng");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -160,19 +221,14 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
                     .addComponent(jLabel8))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textLectureID)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel2))
+                        .addComponent(textFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                            .addComponent(textLocation))))
+                        .addComponent(textLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textLectureID)
+                    .addComponent(dateHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -191,49 +247,79 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(dateHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(textLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonSave.setText("Lưu");
+        buttonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSaveActionPerformed(evt);
+            }
+        });
 
         buttonDelete.setText("Xóa");
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
 
         buttonRefresh.setText("Làm mới");
+        buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRefreshActionPerformed(evt);
+            }
+        });
 
         buttonClose.setText("Đóng");
+        buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCloseActionPerformed(evt);
+            }
+        });
+
+        buttonUpdate.setText("Cập nhật");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(buttonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(buttonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(buttonSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonRefresh)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonSave)
+                    .addComponent(buttonUpdate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonRefresh)
+                    .addComponent(buttonDelete))
+                .addGap(18, 18, 18)
                 .addComponent(buttonClose)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,7 +336,7 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -290,18 +376,128 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_textLastNameActionPerformed
 
+    private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_buttonCloseActionPerformed
+
+    private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRefreshActionPerformed
+        // TODO add your handling code here:
+         // Xóa dữ liệu trên các textfield và date
+        textLectureID.setText("");
+        textFirstName.setText("");
+        textLastName.setText("");
+        dateHireDate.setDate(null);
+    }//GEN-LAST:event_buttonRefreshActionPerformed
+
+    private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
+        // TODO add your handling code here:
+        //Lấy thông tin từ các textfield
+        String firstName = textFirstName.getText();
+        String lastName = textLastName.getText();
+        Date hireDate = dateHireDate.getDate();
+        
+        //Kiểm tra xem các trường dữ liệu có đầy đủ hay không
+        if(firstName.isEmpty() || lastName.isEmpty() || hireDate == null){
+            JOptionPane.showMessageDialog(this, "Please input all information !");
+            return;
+        }
+        
+        //Tạo một đối tượng PersonDTO
+        PersonDTO lecture = new PersonDTO();
+        lecture.setFirstname(firstName);
+        lecture.setLastname(lastName);
+        lecture.setHireDate(hireDate);
+        
+        //Thực hiện thêm sinh viên vào cơ sở dữ liệu
+        if(PersonBLL.addLecture(lecture)){
+            JOptionPane.showMessageDialog(this, "Add success !!!");
+            
+            // Khởi tạo đối tượng studentTable trong trường hợp chưa được khởi tạo
+        if (lecturesTable == null) {
+            lecturesTable = new PersonTable();
+        }
+            
+            // Hiển thị lại dữ liệu trong bảng sinh viên
+        lecturesTable.showDataLectures(tableLectures);
+        textLectureID.setText(""); // Đặt giá trị trống cho textfield StudentID
+        textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
+        textLastName.setText(""); // Đặt giá trị trống cho textfield LastName
+        dateHireDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
+        } else{
+            JOptionPane.showMessageDialog(this, "Add fail !!!");
+        }
+                                              
+    }//GEN-LAST:event_buttonSaveActionPerformed
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        // TODO add your handling code here:
+        //Lấy hàng được chọn trong JTable
+        int selectedRow = tableLectures.getSelectedRow();
+        
+        //Kiểm tra xem người dùng đã chọn một hàng chưa
+        if( selectedRow == -1){
+            JOptionPane.showMessageDialog(this, "Please select a lecture to delete. ");
+            return;
+        }
+        
+        //Lấy studentID của sinh viên được chọn
+        int lectureID = (int) tableLectures.getValueAt(selectedRow, 1);
+        
+        //Xóa sinh viên từ database 
+        if(PersonBLL.deleteLecture(lectureID)){
+            JOptionPane.showMessageDialog(this, "Lecture deleted successfully.");
+            // Cập nhật lại dữ liệu trên JTable
+            lecturesTable.showDataLectures(tableLectures);
+            textLectureID.setText(""); // Đặt giá trị trống cho textfield StudentID
+            textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
+            textLastName.setText(""); // Đặt giá trị trống cho textfield LastName
+            dateHireDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to delete lecture.");
+        }
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        // TODO add your handling code here:
+        // Lấy thông tin từ các textfield
+        String lectureID = textLectureID.getText();
+        String firstName = textFirstName.getText();
+        String lastName = textLastName.getText();
+        Date hireDate = dateHireDate.getDate();
+
+        // Kiểm tra xem các trường dữ liệu có đầy đủ hay không
+        if (firstName.isEmpty() || lastName.isEmpty() || hireDate == null) {
+            JOptionPane.showMessageDialog(this, "Please input all information !");
+            return;
+        }
+        
+            // Tạo một đối tượng PersonDTO
+        PersonDTO lecture = new PersonDTO();
+        lecture.setPersonID(Integer.parseInt(lectureID));
+        lecture.setFirstname(firstName);
+        lecture.setLastname(lastName);
+        lecture.setHireDate(hireDate);
+        
+        // Thực hiện cập nhật thông tin sinh viên trong cơ sở dữ liệu
+        if (PersonBLL.updateLecture(lecture)) {
+            JOptionPane.showMessageDialog(this, "Update success !!!");
+
+            // Sau khi cập nhật thành công, làm mới dữ liệu bảng sinh viên
+            lecturesTable.showDataLectures(tableLectures);
+        } else {
+            JOptionPane.showMessageDialog(this, "Update fail !!!");
+        }
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonDelete;
-    private javax.swing.JButton buttonFind;
     private javax.swing.JButton buttonRefresh;
     private javax.swing.JButton buttonSave;
-    private javax.swing.JComboBox<String> comboboxFind;
+    private javax.swing.JButton buttonUpdate;
     private com.toedter.calendar.JDateChooser dateHireDate;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -317,6 +513,5 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
     private javax.swing.JTextField textFirstName;
     private javax.swing.JTextField textLastName;
     private javax.swing.JTextField textLectureID;
-    private javax.swing.JTextField textLocation;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,11 @@
  */
 package GUI;
 
+import java.awt.event.ActionEvent;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author ACER
@@ -15,6 +20,32 @@ public class JInternalFrameLecturesList extends javax.swing.JInternalFrame {
      */
     public JInternalFrameLecturesList() {
         initComponents();
+        
+        PersonTable.showDataLectures(tableLecturesList);
+        
+        // Đặt ActionListener cho textFind
+        textFind.addActionListener((ActionEvent e) -> {
+            filterTable();
+        });
+    }
+    
+    // Phương thức để lọc và hiển thị sinh viên dựa trên nội dung của textFind
+    private void filterTable() {
+        String keyword = textFind.getText().trim(); // Lấy từ khoá tìm kiếm từ textFind
+
+        // Kiểm tra nếu từ khoá không rỗng
+        if (!keyword.isEmpty()) {
+            DefaultTableModel model = (DefaultTableModel) tableLecturesList.getModel();
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+            tableLecturesList.setRowSorter(sorter);
+
+            // Thiết lập bộ lọc để lọc dữ liệu dựa trên từ khoá
+            RowFilter<DefaultTableModel, Object> rowFilter = RowFilter.regexFilter("(?i)" + keyword);
+            sorter.setRowFilter(rowFilter);
+        } else {
+            // Nếu từ khoá rỗng, hiển thị tất cả dữ liệu
+            tableLecturesList.setRowSorter(null);
+        }
     }
 
     /**
@@ -30,37 +61,23 @@ public class JInternalFrameLecturesList extends javax.swing.JInternalFrame {
         tableLecturesList = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        comboboxFind = new javax.swing.JComboBox<>();
-        buttonFind = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
         buttonClose = new javax.swing.JButton();
 
         tableLecturesList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã giảng viên", "Họ giảng viên", "Tên giảng viên", "Phòng", "Ngày thuê"
+                "Mã giảng viên", "Họ giảng viên", "Tên giảng viên", "Ngày thuê"
             }
         ));
         jScrollPane1.setViewportView(tableLecturesList);
 
         jLabel1.setText("DANH SÁCH GIẢNG VIÊN");
-
-        jLabel3.setText("Thông tin tìm kiếm");
-
-        comboboxFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã giảng viên", "Ngày thuê", "Ngày ghi danh", " ", " " }));
-        comboboxFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboboxFindActionPerformed(evt);
-            }
-        });
-
-        buttonFind.setText("Lọc");
 
         jLabel4.setText("Nhập tìm kiếm");
 
@@ -76,31 +93,27 @@ public class JInternalFrameLecturesList extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonFind)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textFind)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonFind))
-                .addGap(308, 308, 308))
+                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(309, 309, 309))
         );
 
         buttonClose.setText("Đóng");
+        buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,7 +125,7 @@ public class JInternalFrameLecturesList extends javax.swing.JInternalFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 9, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,17 +156,14 @@ public class JInternalFrameLecturesList extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textFindActionPerformed
 
-    private void comboboxFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxFindActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboboxFindActionPerformed
+    private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_buttonCloseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
-    private javax.swing.JButton buttonFind;
-    private javax.swing.JComboBox<String> comboboxFind;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

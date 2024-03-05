@@ -59,7 +59,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="461" max="32767" attributes="0"/>
+                  <EmptySpace pref="468" max="32767" attributes="0"/>
                   <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -91,7 +91,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="291" max="32767" attributes="0"/>
+                  <EmptySpace pref="294" max="32767" attributes="0"/>
                   <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -126,17 +126,18 @@
                       </Group>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="textEnrollmentID" min="-2" pref="308" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="textCourseID" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                              <Component id="buttonCourseList" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="comboboxLectureName" alignment="0" pref="180" max="32767" attributes="0"/>
+                                  <Component id="comboboxCourseName" alignment="0" pref="180" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="textLectureID" max="32767" attributes="0"/>
+                                  <Component id="textCourseID" pref="116" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="textStudentID" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                              <Component id="buttonLectureList" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="textEnrollmentID" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
                   </Group>
@@ -152,17 +153,17 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textStudentID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonLectureList" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboboxLectureName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textLectureID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textCourseID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonCourseList" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboboxCourseName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textCourseID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="10" max="32767" attributes="0"/>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -175,10 +176,8 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xe3; gi&#x1ea3;ng  vi&#xea;n"/>
+                <Property name="text" type="java.lang.String" value="T&#xea;n gi&#x1ea3;ng  vi&#xea;n"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textStudentID">
             </Component>
             <Component class="javax.swing.JTextField" name="textEnrollmentID">
               <Events>
@@ -187,26 +186,42 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xe3; kh&#xf3;a h&#x1ecd;c"/>
+                <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xf3;a h&#x1ecd;c"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboboxLectureName">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboboxCourseName">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textLectureID">
             </Component>
             <Component class="javax.swing.JTextField" name="textCourseID">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCourseIDActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonLectureList">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch gi&#x1ea3;ng vi&#xea;n"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonLectureListActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonCourseList">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch kh&#xf3;a h&#x1ecd;c"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -216,16 +231,12 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="108" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="comboboxFind" min="-2" pref="128" max="-2" attributes="0"/>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="textFind" min="-2" pref="107" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="buttonFind" min="-2" max="-2" attributes="0"/>
+                      <Component id="textFind" min="-2" pref="340" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="buttonFind" min="-2" pref="101" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -235,10 +246,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="9" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboboxFind" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonFind" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -247,11 +256,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin t&#xec;m ki&#x1ebf;m"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nh&#x1ead;p t&#xec;m ki&#x1ebf;m"/>
@@ -261,21 +265,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFindActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="comboboxFind">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="M&#xe3; ph&#xe2;n c&#xf4;ng"/>
-                    <StringItem index="1" value="M&#xe3; gi&#x1ea3;ng vi&#xea;n"/>
-                    <StringItem index="2" value="M&#xe3; kh&#xf3;a h&#x1ecd;c"/>
-                    <StringItem index="3" value=" "/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="buttonFind">
               <Properties>
@@ -318,15 +307,27 @@
                 <Component class="javax.swing.JTable" name="tableStudentGrade">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
+                      <Table columnCount="6" rowCount="4">
                         <Column editable="true" title="STT" type="java.lang.Object"/>
                         <Column editable="true" title="M&#xe3; ph&#xe2;n c&#xf4;ng" type="java.lang.Object"/>
                         <Column editable="true" title="M&#xe3; gi&#x1ea3;ng vi&#xea;n" type="java.lang.Object"/>
+                        <Column editable="true" title="T&#xea;n gi&#x1ea3;ng vi&#xea;n" type="java.lang.Object"/>
                         <Column editable="true" title="M&#xe3; kh&#xf3;a h&#x1ecd;c" type="java.lang.Object"/>
+                        <Column editable="true" title="T&#xea;n kh&#xf3;a h&#x1ecd;c" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -414,6 +415,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x110;&#xf3;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCloseActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

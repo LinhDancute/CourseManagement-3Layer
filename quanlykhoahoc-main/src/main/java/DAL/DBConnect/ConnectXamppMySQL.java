@@ -28,7 +28,7 @@ public class ConnectXamppMySQL {
            
         }
         catch(java.lang.ClassNotFoundException e){
-            throw new Exception("Canot Connect to MySQL !!!");
+            throw new Exception("Cannot Connect to MySQL !!!");
         };
     }
 

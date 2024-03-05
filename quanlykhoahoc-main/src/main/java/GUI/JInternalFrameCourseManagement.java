@@ -27,8 +27,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        comboboxFind = new javax.swing.JComboBox<>();
         buttonFind = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
@@ -62,10 +60,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         DesktopDetails = new javax.swing.JDesktopPane();
-
-        jLabel3.setText("Thông tin tìm kiếm");
-
-        comboboxFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã khóa học", "Tên khóa học", "Số tín chỉ", "Mã khoa", "Tên khoa" }));
 
         buttonFind.setText("Lọc");
 
@@ -226,6 +220,11 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         jButton2.setText("Online");
 
         buttonClose.setText("Đóng");
+        buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -295,15 +294,12 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
+                                .addGap(12, 12, 12)
                                 .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonFind))
+                                .addComponent(buttonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -318,8 +314,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonFind))
@@ -383,6 +377,10 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         departmentList.setVisible(true);
     }//GEN-LAST:event_buttonDepartmentListActionPerformed
 
+    private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_buttonCloseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DesktopDetails;
@@ -392,7 +390,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     private javax.swing.JButton buttonDepartmentList;
     private javax.swing.JButton buttonFind;
     private javax.swing.JButton buttonSave;
-    private javax.swing.JComboBox<String> comboboxFind;
     private com.toedter.calendar.JDateChooser dateDays;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -402,7 +399,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
