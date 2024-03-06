@@ -6,7 +6,7 @@ package GUI;
 
 import BLL.PersonBLL;
 import DAL.PersonDAL;
-import DTO.PersonDTO;
+import BLL.DTO.PersonDTO;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JTable;

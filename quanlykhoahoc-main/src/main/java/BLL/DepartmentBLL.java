@@ -5,7 +5,7 @@
 package BLL;
 
 import DAL.DepartmentDAL;
-import DTO.DepartmentDTO;
+import BLL.DTO.DepartmentDTO;
 import java.util.ArrayList;
 
 /**
@@ -13,45 +13,27 @@ import java.util.ArrayList;
  * @author ACER
  */
 public class DepartmentBLL {
-    static ArrayList<DepartmentDTO> listdepartmentDTOs;
-    private DepartmentDAL departmentDAL = new DepartmentDAL();
+    static ArrayList<DepartmentDTO> listDepartment;
+    private DepartmentDAL data = new DepartmentDAL();
 
     public DepartmentBLL() {
     }
     
-    public static ArrayList<DepartmentDTO> getListDepartment(DepartmentBLL departmentBLL) {
-    return departmentBLL.listdepartmentDTOs;
-}
-    
-    public ArrayList<DepartmentDTO> getAllDepartments() throws Exception {
-            System.out.println("Getting all departments...");
-
-        if (listdepartmentDTOs == null) {
-            listdepartmentDTOs = new ArrayList<DepartmentDTO>();
-        }
-
-        try {
-            ArrayList<DepartmentDTO> loadedDepartments = departmentDAL.loadDepartment();
-
-            if (loadedDepartments != null) {
-                listdepartmentDTOs.addAll(loadedDepartments);
-                System.out.println("thành công.");
-            } else {
-                // Handle the case when loadedDepartments is null
-                System.out.println("Lỗi load dữ liệu từ DAL.");
-            }
-        } catch (Exception e) {
-            System.out.println("Exception while loading departments: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return listdepartmentDTOs;  // Return the list of departments
+    public static ArrayList<DepartmentDTO> getListDepartment(){
+        return listDepartment;
     }
+    
+    public void loadDepartment() throws Exception {
 
+        if (listDepartment == null) {
+            listDepartment = new ArrayList<DepartmentDTO>();
+        }
+        listDepartment = data.loadDepartment();
+    }
     
     public static void main(String[] args) throws Exception {
-        DepartmentBLL departmentBLL = new DepartmentBLL();
-        departmentBLL.getAllDepartments();
-        getListDepartment(departmentBLL).forEach(s -> System.out.println(s));
+        DepartmentBLL dll = new DepartmentBLL();
+        dll.loadDepartment();
+        getListDepartment().forEach(s->System.out.println(s));
     }
 }

@@ -5,7 +5,7 @@
 package DAL;
 
 import DAL.DBConnect.MyConnectUnit;
-import DTO.DepartmentDTO;
+import BLL.DTO.DepartmentDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

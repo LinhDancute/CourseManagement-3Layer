@@ -27,7 +27,7 @@ public class MyDatabaseManager {
         host = "localhost";
         port = "3306";
         dbUser = "root";
-        dbName = "coursemanagement";
+        dbName = "course-management";
         dbPassword = "";
     }
     
@@ -47,7 +47,7 @@ public class MyDatabaseManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cons = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/coursemanagement", "root", "");
+                    "jdbc:mysql://localhost:3306/course-management", "root", "");
         } catch (Exception e) {
             System.out.print("Kết nối lỗi");
         }

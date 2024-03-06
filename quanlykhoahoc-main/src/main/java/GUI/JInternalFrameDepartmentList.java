@@ -6,7 +6,7 @@ package GUI;
 
 import BLL.DepartmentBLL;
 import DAL.DBConnect.ConnectXamppMySQL;
-import DTO.DepartmentDTO;
+import BLL.DTO.DepartmentDTO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -44,6 +44,7 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
     
     private void loadData() {
         try {
+           
             Vector header = new Vector();
             header.add("Mã khoa");
             header.add("Tên khoa");
@@ -55,13 +56,12 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
                 model = new DefaultTableModel(header, 0);
             }
 
-            ArrayList<DepartmentDTO> listDepartment = departmentBLL.getListDepartment(departmentBLL);
-            if (listDepartment != null) {
-                outModel(model, listDepartment);
-                tableDepartmentList.setModel(model);
-            } else {
-                System.out.println("dữ liệu trống");
+            if (departmentBLL.getListDepartment()== null) {
+                departmentBLL.loadDepartment();// lấy dữ liệu các khoá học
             }
+        ArrayList<DepartmentDTO> listDepartment = new ArrayList<>();
+        listDepartment = departmentBLL.getListDepartment();
+        outModel(model, listDepartment);// truyền data vào table
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,8 +78,6 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        comboboxFind = new javax.swing.JComboBox<>();
         buttonFind = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
@@ -88,10 +86,6 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
         buttonClose = new javax.swing.JButton();
 
         jLabel1.setText("DANH SÁCH KHOA");
-
-        jLabel3.setText("Thông tin tìm kiếm");
-
-        comboboxFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã khoa", "Tên khoa", "Ngân sách", "Ngày bắt đầu", "Quản trị viên", " " }));
 
         buttonFind.setText("Lọc");
 
@@ -109,13 +103,9 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboboxFind, 0, 130, Short.MAX_VALUE)
-                    .addComponent(textFind))
+                .addComponent(jLabel4)
+                .addGap(36, 36, 36)
+                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(buttonFind)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -124,16 +114,12 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboboxFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buttonFind)))
-                .addGap(280, 280, 280))
+                .addGap(256, 256, 256))
         );
 
         tableDepartmentList.setModel(new javax.swing.table.DefaultTableModel(
@@ -182,12 +168,12 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonClose)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,9 +191,7 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonFind;
-    private javax.swing.JComboBox<String> comboboxFind;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

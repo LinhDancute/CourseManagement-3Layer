@@ -9,14 +9,6 @@
             <Property name="text" type="java.lang.String" value="Danh m&#x1ee5;c qu&#x1ea3;n l&#xfd;"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuitemCM">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; kh&#xf3;a h&#x1ecd;c"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuitemCMActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuitemSM">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; sinh vi&#xea;n"/>
@@ -47,6 +39,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuitemSGMActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuitemCM">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; kh&#xf3;a h&#x1ecd;c"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuitemCMActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

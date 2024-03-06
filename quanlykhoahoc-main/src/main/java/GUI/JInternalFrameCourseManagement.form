@@ -124,14 +124,13 @@
             <Component class="javax.swing.JTable" name="tableCourse">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="4">
-                    <Column editable="true" title="STT" type="java.lang.Object"/>
+                  <Table columnCount="8" rowCount="4">
                     <Column editable="true" title="M&#xe3; kh&#xf3;a h&#x1ecd;c" type="java.lang.Object"/>
                     <Column editable="true" title="T&#xea;n kh&#xf3;a h&#x1ecd;c" type="java.lang.Object"/>
                     <Column editable="true" title="M&#xe3; khoa" type="java.lang.Object"/>
                     <Column editable="true" title="S&#x1ed1; t&#xed;n ch&#x1ec9;" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x110;&#x1ecb;a &#x111;i&#x1ec3;m" type="java.lang.Object"/>
                     <Column editable="true" title="URL" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x110;&#x1ecb;a &#x111;i&#x1ec3;m" type="java.lang.Object"/>
                     <Column editable="true" title="Ng&#xe0;y" type="java.lang.Object"/>
                     <Column editable="true" title="Gi&#x1edd;" type="java.lang.Object"/>
                   </Table>
@@ -178,17 +177,15 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                   </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableCourseMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -234,7 +231,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="textCourseID" min="-2" pref="131" max="-2" attributes="0"/>
-                                          <Component id="jComboBox1" min="-2" pref="131" max="-2" attributes="0"/>
+                                          <Component id="comboboxDeparmentID" min="-2" pref="131" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -280,7 +277,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboboxDeparmentID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonDepartmentList" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -326,21 +323,19 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textCourseID">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCourseIDActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textTitle">
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="comboboxDeparmentID">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -408,9 +403,9 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="buttonClose" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonOnsite" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton2" max="32767" attributes="0"/>
+                              <Component id="buttonOnline" max="32767" attributes="0"/>
                           </Group>
                           <Component id="Refresh" alignment="0" max="32767" attributes="0"/>
                           <Component id="buttonDelete" alignment="0" max="32767" attributes="0"/>
@@ -431,8 +426,8 @@
                       <Component id="Refresh" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonOnsite" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonOnline" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonClose" min="-2" max="-2" attributes="0"/>
@@ -446,26 +441,41 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSaveActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonDelete">
               <Properties>
                 <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="Refresh">
               <Properties>
                 <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RefreshActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="buttonOnsite">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Onsite"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOnsiteActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="buttonOnline">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Online"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOnlineActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonClose">
               <Properties>

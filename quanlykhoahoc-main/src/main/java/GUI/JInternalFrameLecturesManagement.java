@@ -5,7 +5,7 @@
 package GUI;
 
 import BLL.PersonBLL;
-import DTO.PersonDTO;
+import BLL.DTO.PersonDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

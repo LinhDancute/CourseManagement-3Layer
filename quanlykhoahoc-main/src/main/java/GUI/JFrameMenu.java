@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ACER
@@ -28,11 +32,11 @@ public class JFrameMenu extends javax.swing.JFrame {
         DesktopShow = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        menuitemCM = new javax.swing.JMenuItem();
         menuitemSM = new javax.swing.JMenuItem();
         menuitemLM = new javax.swing.JMenuItem();
         menuitemCIM = new javax.swing.JMenuItem();
         menuitemSGM = new javax.swing.JMenuItem();
+        menuitemCM = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuitemCoursesList = new javax.swing.JMenuItem();
         menuitemLecturesList = new javax.swing.JMenuItem();
@@ -54,14 +58,6 @@ public class JFrameMenu extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Danh mục quản lý");
-
-        menuitemCM.setText("Quản lý khóa học");
-        menuitemCM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuitemCMActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menuitemCM);
 
         menuitemSM.setText("Quản lý sinh viên");
         menuitemSM.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +90,14 @@ public class JFrameMenu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(menuitemSGM);
+
+        menuitemCM.setText("Quản lý khóa học");
+        menuitemCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuitemCMActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuitemCM);
 
         jMenuBar1.add(jMenu1);
 
@@ -161,16 +165,6 @@ public class JFrameMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //QUẢN LÝ KHÓA HỌC
-    private void menuitemCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemCMActionPerformed
-        DesktopShow.removeAll();
-        DesktopShow.repaint();
-        
-        JInternalFrameCourseManagement courseManagement = new JInternalFrameCourseManagement();
-        DesktopShow.add(courseManagement);
-        courseManagement.setVisible(true);
-    }//GEN-LAST:event_menuitemCMActionPerformed
-
     //QUẢN LÝ PHÂN CÔNG GIẢNG DẠY
     private void menuitemCIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemCIMActionPerformed
         DesktopShow.removeAll();
@@ -239,11 +233,27 @@ public class JFrameMenu extends javax.swing.JFrame {
         studentList.setVisible(true);
     }//GEN-LAST:event_menuitemStudentListActionPerformed
 
+    //DANH SÁCH ĐIỂM SINH VIÊN
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         JInternalFrameGradeDetails gradeDetails = new JInternalFrameGradeDetails();
         DesktopShow.add(gradeDetails);
         gradeDetails.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    //QUẢN LÝ KHÓA HỌC
+    private void menuitemCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemCMActionPerformed
+        try {
+            DesktopShow.removeAll();
+            DesktopShow.repaint();
+            
+            JInternalFrameCourseManagement courseManagement = new JInternalFrameCourseManagement();
+            DesktopShow.add(courseManagement);
+            courseManagement.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Không thể load CourseManagement",
+                    "Thông Báo Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_menuitemCMActionPerformed
 
     public javax.swing.JDesktopPane getDesktopShow() {
         return DesktopShow;

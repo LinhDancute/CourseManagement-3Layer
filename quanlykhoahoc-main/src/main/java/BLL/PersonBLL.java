@@ -1,7 +1,7 @@
 package BLL;
 
 import DAL.PersonDAL;
-import DTO.PersonDTO;
+import BLL.DTO.PersonDTO;
 import java.util.List;
 
 /**

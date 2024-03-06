@@ -1,6 +1,6 @@
 package DAL;
 
-import DTO.PersonDTO;
+import BLL.DTO.PersonDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
