@@ -487,9 +487,9 @@ public class JInternalFrameStudentManagement extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         // Xóa dữ liệu trên các textfield và date
         textStudentID.setText("");
-    textFirstName.setText("");
-    textLastname.setText("");
-    dateEnrollmentDate.setDate(null);
+        textFirstName.setText("");
+        textLastname.setText("");
+        dateEnrollmentDate.setDate(null);
     }//GEN-LAST:event_buttonRefreshActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed

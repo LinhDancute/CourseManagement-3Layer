@@ -408,23 +408,27 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
         lecture.setLastname(lastName);
         lecture.setHireDate(hireDate);
         
-        //Thực hiện thêm sinh viên vào cơ sở dữ liệu
-        if(PersonBLL.addLecture(lecture)){
-            JOptionPane.showMessageDialog(this, "Add success !!!");
-            
-            // Khởi tạo đối tượng studentTable trong trường hợp chưa được khởi tạo
-        if (lecturesTable == null) {
-            lecturesTable = new PersonTable();
-        }
-            
-            // Hiển thị lại dữ liệu trong bảng sinh viên
-        lecturesTable.showDataLectures(tableLectures);
-        textLectureID.setText(""); // Đặt giá trị trống cho textfield StudentID
-        textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
-        textLastName.setText(""); // Đặt giá trị trống cho textfield LastName
-        dateHireDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
-        } else{
-            JOptionPane.showMessageDialog(this, "Add fail !!!");
+        try {
+            //Thực hiện thêm sinh viên vào cơ sở dữ liệu
+            if(PersonBLL.addLecture(lecture)){
+                JOptionPane.showMessageDialog(this, "Add success !!!");
+                
+                // Khởi tạo đối tượng studentTable trong trường hợp chưa được khởi tạo
+                if (lecturesTable == null) {
+                    lecturesTable = new PersonTable();
+                }
+                
+                // Hiển thị lại dữ liệu trong bảng sinh viên
+                lecturesTable.showDataLectures(tableLectures);
+                textLectureID.setText(""); // Đặt giá trị trống cho textfield StudentID
+                textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
+                textLastName.setText(""); // Đặt giá trị trống cho textfield LastName
+                dateHireDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
+            } else{
+                JOptionPane.showMessageDialog(this, "Add fail !!!");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalFrameLecturesManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
                                               
     }//GEN-LAST:event_buttonSaveActionPerformed
@@ -443,17 +447,21 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
         //Lấy studentID của sinh viên được chọn
         int lectureID = (int) tableLectures.getValueAt(selectedRow, 1);
         
-        //Xóa sinh viên từ database 
-        if(PersonBLL.deleteLecture(lectureID)){
-            JOptionPane.showMessageDialog(this, "Lecture deleted successfully.");
-            // Cập nhật lại dữ liệu trên JTable
-            lecturesTable.showDataLectures(tableLectures);
-            textLectureID.setText(""); // Đặt giá trị trống cho textfield StudentID
-            textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
-            textLastName.setText(""); // Đặt giá trị trống cho textfield LastName
-            dateHireDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to delete lecture.");
+        try {
+            //Xóa sinh viên từ database
+            if(PersonBLL.deleteLecture(lectureID)){
+                JOptionPane.showMessageDialog(this, "Lecture deleted successfully.");
+                // Cập nhật lại dữ liệu trên JTable
+                lecturesTable.showDataLectures(tableLectures);
+                textLectureID.setText(""); // Đặt giá trị trống cho textfield StudentID
+                textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
+                textLastName.setText(""); // Đặt giá trị trống cho textfield LastName
+                dateHireDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to delete lecture.");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalFrameLecturesManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
@@ -478,14 +486,18 @@ public class JInternalFrameLecturesManagement extends javax.swing.JInternalFrame
         lecture.setLastname(lastName);
         lecture.setHireDate(hireDate);
         
-        // Thực hiện cập nhật thông tin sinh viên trong cơ sở dữ liệu
-        if (PersonBLL.updateLecture(lecture)) {
-            JOptionPane.showMessageDialog(this, "Update success !!!");
-
-            // Sau khi cập nhật thành công, làm mới dữ liệu bảng sinh viên
-            lecturesTable.showDataLectures(tableLectures);
-        } else {
-            JOptionPane.showMessageDialog(this, "Update fail !!!");
+        try {
+            // Thực hiện cập nhật thông tin sinh viên trong cơ sở dữ liệu
+            if (PersonBLL.updateLecture(lecture)) {
+                JOptionPane.showMessageDialog(this, "Update success !!!");
+                
+                // Sau khi cập nhật thành công, làm mới dữ liệu bảng sinh viên
+                lecturesTable.showDataLectures(tableLectures);
+            } else {
+                JOptionPane.showMessageDialog(this, "Update fail !!!");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalFrameLecturesManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
