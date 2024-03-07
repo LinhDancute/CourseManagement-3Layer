@@ -26,27 +26,27 @@ public class PersonBLL {
     }
 
     
-    public static boolean addStudent(PersonDTO student) {
+    public static boolean addStudent(PersonDTO student) throws Exception {
         return PersonDAL.addStudent(student);
     }
     
-    public static boolean updateStudent(PersonDTO student) {
+    public static boolean updateStudent(PersonDTO student) throws Exception {
         return PersonDAL.updateStudent(student);
     }
     
-    public static boolean deleteStudent(int studentID) {
+    public static boolean deleteStudent(int studentID) throws Exception {
         return PersonDAL.deleteStudent(studentID);
     }
      
-     public static boolean addLecture(PersonDTO lecture) {
+     public static boolean addLecture(PersonDTO lecture) throws Exception {
         return PersonDAL.addLecture(lecture);
     }
     
-    public static boolean updateLecture(PersonDTO lecture) {
+    public static boolean updateLecture(PersonDTO lecture) throws Exception {
         return PersonDAL.updateLecture(lecture);
     }
     
-    public static boolean deleteLecture(int lectureID) {
+    public static boolean deleteLecture(int lectureID) throws Exception {
         return PersonDAL.deleteLecture(lectureID);
     }
 
