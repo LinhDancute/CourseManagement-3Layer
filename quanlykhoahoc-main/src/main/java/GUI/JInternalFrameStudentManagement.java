@@ -404,73 +404,81 @@ public class JInternalFrameStudentManagement extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_textFirstNameActionPerformed
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
-        // TODO add your handling code here:
-        //Lấy thông tin từ các textfield
-        String firstName = textFirstName.getText();
-        String lastName = textLastname.getText();
-        Date enrollmentDate = dateEnrollmentDate.getDate();
-        
-        //Kiểm tra xem các trường dữ liệu có đầy đủ hay không
-        if(firstName.isEmpty() || lastName.isEmpty() || enrollmentDate == null){
-            JOptionPane.showMessageDialog(this, "Please input all information !");
-            return;
-        }
-        
-        //Tạo một đối tượng PersonDTO
-        PersonDTO student = new PersonDTO();
-        student.setFirstname(firstName);
-        student.setLastname(lastName);
-        student.setEnrollmentDate(enrollmentDate);
-        
-        //Thực hiện thêm sinh viên vào cơ sở dữ liệu
-        if(PersonBLL.addStudent(student)){
-            JOptionPane.showMessageDialog(this, "Add success !!!");
+        try {
+            // TODO add your handling code here:
+            //Lấy thông tin từ các textfield
+            String firstName = textFirstName.getText();
+            String lastName = textLastname.getText();
+            Date enrollmentDate = dateEnrollmentDate.getDate();
             
-            // Khởi tạo đối tượng studentTable trong trường hợp chưa được khởi tạo
-        if (studentTable == null) {
-            studentTable = new PersonTable();
-        }
+            //Kiểm tra xem các trường dữ liệu có đầy đủ hay không
+            if(firstName.isEmpty() || lastName.isEmpty() || enrollmentDate == null){
+                JOptionPane.showMessageDialog(this, "Please input all information !");
+                return;
+            }
             
-            // Hiển thị lại dữ liệu trong bảng sinh viên
-        studentTable.showDataStudent(tableStudent);
-        textStudentID.setText(""); // Đặt giá trị trống cho textfield StudentID
-        textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
-        textLastname.setText(""); // Đặt giá trị trống cho textfield LastName
-        dateEnrollmentDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
-        } else{
-            JOptionPane.showMessageDialog(this, "Add fail !!!");
+            //Tạo một đối tượng PersonDTO
+            PersonDTO student = new PersonDTO();
+            student.setFirstname(firstName);
+            student.setLastname(lastName);
+            student.setEnrollmentDate(enrollmentDate);
+            
+            //Thực hiện thêm sinh viên vào cơ sở dữ liệu
+            if(PersonBLL.addStudent(student)){
+                JOptionPane.showMessageDialog(this, "Add success !!!");
+                
+                // Khởi tạo đối tượng studentTable trong trường hợp chưa được khởi tạo
+                if (studentTable == null) {
+                    studentTable = new PersonTable();
+                }
+                
+                // Hiển thị lại dữ liệu trong bảng sinh viên
+                studentTable.showDataStudent(tableStudent);
+                textStudentID.setText(""); // Đặt giá trị trống cho textfield StudentID
+                textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
+                textLastname.setText(""); // Đặt giá trị trống cho textfield LastName
+                dateEnrollmentDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
+            } else{
+                JOptionPane.showMessageDialog(this, "Add fail !!!");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalFrameStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonSaveActionPerformed
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
-        // TODO add your handling code here:
-        // Lấy thông tin từ các textfield
-        String studentID = textStudentID.getText();
-        String firstName = textFirstName.getText();
-        String lastName = textLastname.getText();
-        Date enrollmentDate = dateEnrollmentDate.getDate();
-
-        // Kiểm tra xem các trường dữ liệu có đầy đủ hay không
-        if (firstName.isEmpty() || lastName.isEmpty() || enrollmentDate == null) {
-            JOptionPane.showMessageDialog(this, "Please input all information !");
-            return;
-        }
-        
+        try {
+            // TODO add your handling code here:
+            // Lấy thông tin từ các textfield
+            String studentID = textStudentID.getText();
+            String firstName = textFirstName.getText();
+            String lastName = textLastname.getText();
+            Date enrollmentDate = dateEnrollmentDate.getDate();
+            
+            // Kiểm tra xem các trường dữ liệu có đầy đủ hay không
+            if (firstName.isEmpty() || lastName.isEmpty() || enrollmentDate == null) {
+                JOptionPane.showMessageDialog(this, "Please input all information !");
+                return;
+            }
+            
             // Tạo một đối tượng PersonDTO
-        PersonDTO student = new PersonDTO();
-        student.setPersonID(Integer.parseInt(studentID));
-        student.setFirstname(firstName);
-        student.setLastname(lastName);
-        student.setEnrollmentDate(enrollmentDate);
-        
-        // Thực hiện cập nhật thông tin sinh viên trong cơ sở dữ liệu
-        if (PersonBLL.updateStudent(student)) {
-            JOptionPane.showMessageDialog(this, "Update success !!!");
-
-            // Sau khi cập nhật thành công, làm mới dữ liệu bảng sinh viên
-            studentTable.showDataStudent(tableStudent);
-        } else {
-            JOptionPane.showMessageDialog(this, "Update fail !!!");
+            PersonDTO student = new PersonDTO();
+            student.setPersonID(Integer.parseInt(studentID));
+            student.setFirstname(firstName);
+            student.setLastname(lastName);
+            student.setEnrollmentDate(enrollmentDate);
+            
+            // Thực hiện cập nhật thông tin sinh viên trong cơ sở dữ liệu
+            if (PersonBLL.updateStudent(student)) {
+                JOptionPane.showMessageDialog(this, "Update success !!!");
+                
+                // Sau khi cập nhật thành công, làm mới dữ liệu bảng sinh viên
+                studentTable.showDataStudent(tableStudent);
+            } else {
+                JOptionPane.showMessageDialog(this, "Update fail !!!");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalFrameStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_buttonUpdateActionPerformed
@@ -485,30 +493,34 @@ public class JInternalFrameStudentManagement extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_buttonRefreshActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        // TODO add your handling code here:
-        //Lấy hàng được chọn trong JTable
-        int selectedRow = tableStudent.getSelectedRow();
-        
-        //Kiểm tra xem người dùng đã chọn một hàng chưa
-        if( selectedRow == -1){
-            JOptionPane.showMessageDialog(this, "Please select a student to delete. ");
-            return;
-        }
-        
-        //Lấy studentID của sinh viên được chọn
-        int studentID = (int) tableStudent.getValueAt(selectedRow, 1);
-        
-        //Xóa sinh viên từ database 
-        if(PersonBLL.deleteStudent(studentID)){
-            JOptionPane.showMessageDialog(this, "Student deleted successfully.");
-            // Cập nhật lại dữ liệu trên JTable
-            studentTable.showDataStudent(tableStudent);
-            textStudentID.setText(""); // Đặt giá trị trống cho textfield StudentID
-            textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
-            textLastname.setText(""); // Đặt giá trị trống cho textfield LastName
-            dateEnrollmentDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to delete student.");
+        try {
+            // TODO add your handling code here:
+            //Lấy hàng được chọn trong JTable
+            int selectedRow = tableStudent.getSelectedRow();
+            
+            //Kiểm tra xem người dùng đã chọn một hàng chưa
+            if( selectedRow == -1){
+                JOptionPane.showMessageDialog(this, "Please select a student to delete. ");
+                return;
+            }
+            
+            //Lấy studentID của sinh viên được chọn
+            int studentID = (int) tableStudent.getValueAt(selectedRow, 1);
+            
+            //Xóa sinh viên từ database
+            if(PersonBLL.deleteStudent(studentID)){
+                JOptionPane.showMessageDialog(this, "Student deleted successfully.");
+                // Cập nhật lại dữ liệu trên JTable
+                studentTable.showDataStudent(tableStudent);
+                textStudentID.setText(""); // Đặt giá trị trống cho textfield StudentID
+                textFirstName.setText(""); // Đặt giá trị trống cho textfield FirstName
+                textLastname.setText(""); // Đặt giá trị trống cho textfield LastName
+                dateEnrollmentDate.setDate(null); // Đặt giá trị null cho dateEnrollmentDate
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to delete student.");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalFrameStudentManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_buttonDeleteActionPerformed
