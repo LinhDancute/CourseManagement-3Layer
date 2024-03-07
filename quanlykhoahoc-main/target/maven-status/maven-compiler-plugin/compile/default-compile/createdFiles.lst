@@ -9,6 +9,7 @@ GUI\JInternalFrameStudentGradeManagement$5.class
 GUI\JInternalFrameStudentManagement$1.class
 DAL\DepartmentDAL.class
 BLL\CourseBLL.class
+GUI\JInternalFrameCourseInstructorManagement$6.class
 GUI\JInternalFrameLecturesManagement$9.class
 GUI\JFrameMenu$1.class
 GUI\JFrameMenu$10.class
@@ -83,9 +84,11 @@ GUI\PersonTable.class
 GUI\JFrameMenu$5.class
 GUI\JInternalFrameCourseList.class
 BLL\DTO\CourseInstructorDTO.class
+GUI\JInternalFrameCourseInstructorManagement$5.class
 GUI\JInternalFrameCourseManagement$5.class
 BLL\DTO\OnlineCourseDTO.class
 GUI\JInternalFrameLecturesManagement$6.class
+DAL\CourseInstructorDAL.class
 GUI\JInternalFrameStudentList$1.class
 GUI\JInternalFrameStudentManagement$7.class
 GUI\JInternalFrameCourseList$2.class

@@ -12,6 +12,7 @@ import BLL.DTO.DepartmentDTO;
 import BLL.DTO.OnlineCourseDTO;
 import BLL.DTO.OnsiteCourseDTO;
 import BLL.DepartmentBLL;
+import java.awt.event.ActionEvent;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,12 +22,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author ACER
- */
 public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
     CourseBLL courseBLL = new CourseBLL();
@@ -36,6 +35,11 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         initComponents();
         ShowDataBase("ASC");
         loadDepartmentID(comboboxDeparmentID);
+        
+        // Đặt ActionListener cho textFind
+        textFind.addActionListener((ActionEvent e) -> {
+            filterTable();
+        });
     }
     
     //HIỂN THỊ DỮ LIỆU DepartmentID lên COMBOBOX
@@ -91,7 +95,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     }
 
     
-    
     private void RefreshDataBase(String orderby) throws Exception {
         try {
             courseBLL.loadDSCourse(orderby);
@@ -123,12 +126,30 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         }
         tableCourse.setModel(model);
     }
+    
+    // Phương thức để lọc và hiển thị sinh viên dựa trên nội dung của textFind
+    private void filterTable() {
+        String keyword = textFind.getText().trim(); // Lấy từ khoá tìm kiếm từ textFind
+
+        // Kiểm tra nếu từ khoá không rỗng
+        if (!keyword.isEmpty()) {
+            DefaultTableModel model = (DefaultTableModel) tableCourse.getModel();
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+            tableCourse.setRowSorter(sorter);
+
+            // Thiết lập bộ lọc để lọc dữ liệu dựa trên từ khoá
+            RowFilter<DefaultTableModel, Object> rowFilter = RowFilter.regexFilter("(?i)" + keyword);
+            sorter.setRowFilter(rowFilter);
+        } else {
+            // Nếu từ khoá rỗng, hiển thị tất cả dữ liệu
+            tableCourse.setRowSorter(null);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        buttonFind = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -161,8 +182,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         DesktopDetails = new javax.swing.JDesktopPane();
-
-        buttonFind.setText("Lọc");
 
         jLabel4.setText("Nhập tìm kiếm");
 
@@ -422,19 +441,15 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 5, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 5, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(textFind)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -445,8 +460,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonFind))
+                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -666,7 +680,6 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonDepartmentList;
-    private javax.swing.JButton buttonFind;
     private javax.swing.JButton buttonOnline;
     private javax.swing.JButton buttonOnsite;
     private javax.swing.JButton buttonSave;

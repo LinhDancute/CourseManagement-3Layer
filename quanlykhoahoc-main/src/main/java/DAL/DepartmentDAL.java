@@ -21,6 +21,7 @@ public class DepartmentDAL extends MyConnectUnit{
         super();
     }
     
+    //LẤY DỮ LIỆU
     public ArrayList<DepartmentDTO> loadDepartment() throws Exception{
         ArrayList<DepartmentDTO> listDepartment = new ArrayList<>();
         try {

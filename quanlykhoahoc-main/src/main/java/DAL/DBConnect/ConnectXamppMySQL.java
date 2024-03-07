@@ -5,10 +5,10 @@ package DAL.DBConnect;
 import java.sql.*;
 
 public class ConnectXamppMySQL {
-    String host="";
-    String username="";
+    String host="localhost";
+    String username="root";
     String password="";
-    String database="";
+    String database="course-management";
     
     Statement statement=null;
     Connection connect=null;
@@ -32,19 +32,16 @@ public class ConnectXamppMySQL {
         };
     }
 
-    public Connection getConnect() throws Exception  {
-        if(this.connect==null){
-            this.DriverTest();
-            String url ="jdbc:mysql://"+this.host+":3306/"+this.database+"?useUnicode=yes&characterEncoding=UTF-8";
-            try{
-                this.connect=DriverManager.getConnection(url,username,password);
-            }
-            catch(java.sql.SQLException e){
-            throw new Exception("Canot Connect to MySQL !!!"+url+e.getMessage());
+    public static Connection getConnect() throws Exception  {
+        Connection cons = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cons = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/course-management", "root", "");
+        } catch (Exception e) {
+            System.out.print("Kết nối lỗi");
         }
-        }
-        System.out.println("jdbc:mysql://"+this.host+":3306/"+this.database);
-        return connect;
+        return cons;
     }
     public Statement getStatement()throws Exception {
         if(statement==null?true:statement.isClosed()){

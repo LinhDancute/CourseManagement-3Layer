@@ -24,7 +24,7 @@ public class CourseDAL extends MyConnectUnit{
 
     }
 
-    //HIỂN THỊ DỮ LIỆU LÊN TABLE
+    //LẤY DỮ LIỆU
     public ArrayList<CourseDTO> loadCourse(String orderby) throws Exception {
         ArrayList<CourseDTO> listCourse = new ArrayList<>();
         try {

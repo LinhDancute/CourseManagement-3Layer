@@ -4,16 +4,17 @@ public class CourseInstructorDTO {
     private int ID;
     private int CourseID;
     private int PersonID;
-//    private String TitleCourse;
-//    private String TeacherName;
+    private String TitleCourse;
+    private String LectureName;
+    
     public CourseInstructorDTO() {
     }
-    public CourseInstructorDTO(int ID, int CourseID, int PersonID) {
+    public CourseInstructorDTO(int ID, int CourseID, int PersonID, String TitleCourse, String LectureName) {
         this.ID=ID;
         this.CourseID = CourseID;
         this.PersonID = PersonID;
-//        this.TeacherName = TeacherName;
-//        this.TitleCourse = TitleCourse;
+        this.LectureName = LectureName;
+        this.TitleCourse = TitleCourse;
     }
     public int getCourseID() {
         return CourseID;
@@ -27,18 +28,18 @@ public class CourseInstructorDTO {
     public void setPersonID(int PersonID) {
         this.PersonID = PersonID;
     }
-//    public String getTitleCourse() {
-//        return TitleCourse;
-//    }
-//    public void setTitleCourse(String TitleCourse) {
-//        this.TitleCourse = TitleCourse;
-//    }
-//    public String getTeacherName() {
-//        return TeacherName;
-//    }
-//    public void setTeacherName(String TeacherName) {
-//        this.TeacherName = TeacherName;
-//    }
+    public String getTitleCourse() {
+        return TitleCourse;
+    }
+    public void setTitleCourse(String TitleCourse) {
+        this.TitleCourse = TitleCourse;
+    }
+    public String getLectureName() {
+        return LectureName;
+    }
+    public void setLectureName(String LectureName) {
+        this.LectureName = LectureName;
+    }
     public int getID() {
         return ID;
     }

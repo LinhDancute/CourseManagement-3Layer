@@ -176,10 +176,13 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xea;n gi&#x1ea3;ng  vi&#xea;n"/>
+                <Property name="text" type="java.lang.String" value="T&#xea;n gi&#x1ea3;ng vi&#xea;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textEnrollmentID">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textEnrollmentIDActionPerformed"/>
               </Events>
@@ -192,12 +195,7 @@
             <Component class="javax.swing.JComboBox" name="comboboxLectureName">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -207,12 +205,7 @@
             <Component class="javax.swing.JComboBox" name="comboboxCourseName">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -220,8 +213,14 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="textLectureID">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textCourseID">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -233,10 +232,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="textFind" min="-2" pref="340" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonFind" min="-2" pref="101" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="textFind" min="-2" pref="445" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -248,7 +245,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonFind" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -265,11 +261,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFindActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonFind">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="L&#x1ecd;c"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -304,11 +295,10 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tableStudentGrade">
+                <Component class="javax.swing.JTable" name="tableCourseInstructor">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="4">
-                        <Column editable="true" title="STT" type="java.lang.Object"/>
+                      <Table columnCount="5" rowCount="4">
                         <Column editable="true" title="M&#xe3; ph&#xe2;n c&#xf4;ng" type="java.lang.Object"/>
                         <Column editable="true" title="M&#xe3; gi&#x1ea3;ng vi&#xea;n" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n gi&#x1ea3;ng vi&#xea;n" type="java.lang.Object"/>
@@ -343,17 +333,15 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                       </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableCourseInstructorMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -397,6 +385,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSaveActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonDelete">
               <Properties>
