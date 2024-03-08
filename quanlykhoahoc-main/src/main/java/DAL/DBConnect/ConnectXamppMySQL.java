@@ -4,7 +4,7 @@ package DAL.DBConnect;
 
 import java.sql.*;
 
-public class ConnectXamppMySQL {
+public class ConnectXamppMySQL implements AutoCloseable {
     String host="localhost";
     String username="root";
     String password="";
@@ -32,7 +32,7 @@ public class ConnectXamppMySQL {
         };
     }
 
-    public static Connection getConnect() throws Exception  {
+    public Connection getConnect() throws Exception  {
         Connection cons = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -87,9 +87,9 @@ public class ConnectXamppMySQL {
             this.connect=null;
         }
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public void close() throws Exception {
+        Close();
+    }
 }

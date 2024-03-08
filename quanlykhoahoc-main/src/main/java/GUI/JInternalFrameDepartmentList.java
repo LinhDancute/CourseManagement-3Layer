@@ -7,11 +7,14 @@ package GUI;
 import BLL.DepartmentBLL;
 import DAL.DBConnect.ConnectXamppMySQL;
 import BLL.DTO.DepartmentDTO;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -25,6 +28,11 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
         initComponents();
         departmentBLL = new DepartmentBLL();
         loadData();
+        
+        // Đặt ActionListener cho textFind
+        textFind.addActionListener((ActionEvent e) -> {
+            filterTable();
+        });
     }
     
     public void outModel(DefaultTableModel model, ArrayList<DepartmentDTO> listDepartment) {
@@ -66,6 +74,25 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
+    
+    // Phương thức để lọc và hiển thị sinh viên dựa trên nội dung của textFind
+    private void filterTable() {
+        String keyword = textFind.getText().trim(); // Lấy từ khoá tìm kiếm từ textFind
+
+        // Kiểm tra nếu từ khoá không rỗng
+        if (!keyword.isEmpty()) {
+            DefaultTableModel model = (DefaultTableModel) tableDepartmentList.getModel();
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+            tableDepartmentList.setRowSorter(sorter);
+
+            // Thiết lập bộ lọc để lọc dữ liệu dựa trên từ khoá
+            RowFilter<DefaultTableModel, Object> rowFilter = RowFilter.regexFilter("(?i)" + keyword);
+            sorter.setRowFilter(rowFilter);
+        } else {
+            // Nếu từ khoá rỗng, hiển thị tất cả dữ liệu
+            tableDepartmentList.setRowSorter(null);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,7 +105,6 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        buttonFind = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textFind = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -86,8 +112,6 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
         buttonClose = new javax.swing.JButton();
 
         jLabel1.setText("DANH SÁCH KHOA");
-
-        buttonFind.setText("Lọc");
 
         jLabel4.setText("Nhập tìm kiếm");
 
@@ -105,10 +129,7 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addGap(36, 36, 36)
-                .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonFind)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textFind))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,10 +137,8 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonFind)))
-                .addGap(256, 256, 256))
+                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(257, 257, 257))
         );
 
         tableDepartmentList.setModel(new javax.swing.table.DefaultTableModel(
@@ -190,7 +209,6 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
-    private javax.swing.JButton buttonFind;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;

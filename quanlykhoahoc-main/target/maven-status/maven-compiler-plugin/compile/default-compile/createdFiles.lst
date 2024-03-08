@@ -3,7 +3,6 @@ GUI\JInternalFrameStudentManagement$8.class
 GUI\JInternalFrameCourseManagement$7.class
 GUI\JFrameMenu$8.class
 BLL\DTO\OnsiteCourseDTO.class
-DAL\DBConnect\MyDatabaseManager.class
 GUI\JInternalFrameGradeDetails.class
 GUI\JInternalFrameStudentGradeManagement$5.class
 GUI\JInternalFrameStudentManagement$1.class

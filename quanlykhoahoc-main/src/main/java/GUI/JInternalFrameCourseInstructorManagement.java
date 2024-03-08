@@ -44,8 +44,20 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
             }
             loadNameCourse(comboboxCourseName);
             loadLectureName(comboboxCourseName);
+            
+            comboboxCourseName.addItemListener(this);
         } catch (Exception ex) {
             Logger.getLogger(JInternalFrameCourseInstructorManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //HIỂN THỊ CourseID lên field
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            String selectedCourse = (String) comboboxCourseName.getSelectedItem();
+
+            textCourseID.setText("Selected Course: " + selectedCourse);
         }
     }
     
@@ -62,18 +74,21 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
     
     // HIỂN THỊ LectureName LÊN COMBOBOX
     public void loadLectureName(JComboBox cb) throws Exception {
-        if (personBLL.getListPerson(isClosed) == null) {
-            personBLL.loadPerson(isClosed);
+        if (personBLL.getListPerson(true) == null) {
+            personBLL.loadPerson(true);
         }
-        List<PersonDTO> personList = personBLL.getListPerson(isClosed);
+
+        ArrayList<PersonDTO> personList = (ArrayList<PersonDTO>) personBLL.getListPerson(false);
+
+        System.out.println("Person List: " + personList);
+
         for (PersonDTO person : personList) {
-            cb.addItem(person.getFirstname() + person.getLastname());
+            cb.addItem(person.getFirstname());
         }
     }
-    
-//    JComboBox<String> comboBoxCourseID = new JComboBox<String>();
-//    comboBoxCourseID.addItemListener()
 
+    
+    
     public JInternalFrameCourseInstructorManagement(DefaultTableModel model, JDesktopPane DesktopDetails, JButton buttonClose, JButton buttonDelete, JButton buttonFind, JButton buttonRefresh, JButton buttonSave, JComboBox<String> comboboxCourseName, JComboBox<String> comboboxLectureName, JLabel jLabel1, JLabel jLabel4, JLabel jLabel5, JLabel jLabel6, JLabel jLabel8, JPanel jPanel1, JPanel jPanel3, JPanel jPanel4, JPanel jPanel5, JPanel jPanel6, JScrollPane jScrollPane1, JTable tableCourseInstructor, JTextField textCourseID, JTextField textEnrollmentID, JTextField textFind, JTextField textLectureID) {
         this.model = model;
         this.DesktopDetails = DesktopDetails;
@@ -505,8 +520,5 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
     private javax.swing.JTextField textLectureID;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

@@ -72,10 +72,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="textFind" min="-2" pref="130" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="buttonFind" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="textFind" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -85,22 +82,14 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="textFind" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="256" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="257" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="buttonFind">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="L&#x1ecd;c"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nh&#x1ead;p t&#xec;m ki&#x1ebf;m"/>

@@ -4,6 +4,8 @@ import DAL.PersonDAL;
 import BLL.DTO.PersonDTO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
      *
@@ -14,16 +16,27 @@ public class PersonBLL {
     private PersonDAL data = new PersonDAL();
     
     public static List<PersonDTO> getListPerson(boolean isStudent) {
-        // Gọi phương thức tương ứng trong PersonDAL và trả về kết quả
-        return PersonDAL.getListPerson(isStudent);
+        try {
+            PersonDAL personDAL = new PersonDAL();
+            return personDAL.getListPerson(isStudent);
+        } catch (Exception ex) {
+            Logger.getLogger(PersonBLL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ArrayList<>(); 
     }
     
-    public void loadPerson(boolean isStudent) throws Exception {
+    public void loadPerson(boolean isStudent) {
         if (listPerson == null) {
-            listPerson = new ArrayList<PersonDTO>();
+            listPerson = new ArrayList<>();
         }
-        listPerson = (ArrayList<PersonDTO>) data.getListPerson(isStudent);// gọi Layer DAL hàm đọc data từ CSDL
+
+        try {
+            listPerson = (ArrayList<PersonDTO>) data.getListPerson(isStudent); // Gọi DAL để đọc dữ liệu từ DB
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     
     public static boolean addStudent(PersonDTO student) throws Exception {

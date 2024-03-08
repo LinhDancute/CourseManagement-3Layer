@@ -2,42 +2,30 @@ package DAL;
 
 import BLL.DTO.PersonDTO;
 import DAL.DBConnect.ConnectXamppMySQL;
+import DAL.DBConnect.MyConnectUnit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class PersonDAL {
+public class PersonDAL extends MyConnectUnit {
 
-    public static List<PersonDTO> getListPerson(boolean isStudent) {
-        List<PersonDTO> listPerson = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            try {
-                connection = ConnectXamppMySQL.getConnect();
-            } catch (Exception ex) {
-                Logger.getLogger(PersonDAL.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String sql = "SELECT * FROM person WHERE ";
-
+    public List<PersonDTO> getListPerson(boolean isStudent) throws Exception {
+        ArrayList<PersonDTO> listPerson = new ArrayList<>();
+        
+        MyConnectUnit myConnect = new MyConnectUnit();
+         try {
+            String condition;
             if (isStudent) {
                 // Lấy danh sách sinh viên (HireDate = Null)
-                sql += "HireDate IS NULL";
+                condition = "HireDate IS NULL";
             } else {
                 // Lấy danh sách giảng viên (EnrollmentDate = Null)
-                sql += "EnrollmentDate IS NULL";
+                condition = "EnrollmentDate IS NULL";
             }
-
-            statement = connection.prepareStatement(sql);
-            resultSet = statement.executeQuery();
-
+            ResultSet resultSet = myConnect.Select("person", condition);
             while (resultSet.next()) {
                 PersonDTO person = new PersonDTO();
                 person.setPersonID(resultSet.getInt("PersonID"));
@@ -48,52 +36,51 @@ public class PersonDAL {
                 listPerson.add(person);
             }
 
-        } catch (SQLException e) {
-            // Xử lý ngoại lệ, ví dụ: in lỗi ra console
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                // Đóng tất cả các tài nguyên
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
+                myConnect.Close();
             } catch (SQLException e) {
-                // Xử lý ngoại lệ khi đóng tài nguyên
                 e.printStackTrace();
             }
         }
-
         return listPerson;
     }
 
     public static boolean addStudent(PersonDTO student) throws Exception {
-        String sql = "INSERT INTO person (Firstname, Lastname, HireDate, EnrollmentDate) VALUES (?, ?,NULL ,?)";
+    String sql = "INSERT INTO person (Firstname, Lastname, HireDate, EnrollmentDate) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = ConnectXamppMySQL.getConnect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (ConnectXamppMySQL connect = new ConnectXamppMySQL(); 
+         Connection conn = connect.getConnect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setString(1, student.getFirstname());
+        pstmt.setString(2, student.getLastname());
 
-            pstmt.setString(1, student.getFirstname());
-            pstmt.setString(2, student.getLastname());
-            pstmt.setDate(3, new java.sql.Date(student.getEnrollmentDate().getTime()));
-
-            int rowsInserted = pstmt.executeUpdate();
-            return rowsInserted > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+        // Assuming HireDate is a mandatory field
+        if (student.getHireDate() != null) {
+            pstmt.setDate(3, new java.sql.Date(student.getHireDate().getTime()));
+        } else {
+            // Provide a default value or handle as needed
+            // Example: pstmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+            pstmt.setNull(3, java.sql.Types.DATE);
         }
+
+        pstmt.setDate(4, new java.sql.Date(student.getEnrollmentDate().getTime()));
+
+        int rowsInserted = pstmt.executeUpdate();
+        return rowsInserted > 0;
     }
+}
+
 
     public static boolean updateStudent(PersonDTO student) throws Exception {
         String sql = "UPDATE person SET Firstname = ?, Lastname = ?, EnrollmentDate = ? WHERE PersonID = ?";
 
-        try (Connection conn = ConnectXamppMySQL.getConnect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (ConnectXamppMySQL connect = new ConnectXamppMySQL(); 
+         Connection conn = connect.getConnect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, student.getFirstname());
             pstmt.setString(2, student.getLastname());
@@ -111,7 +98,9 @@ public class PersonDAL {
     public static boolean deleteStudent(int studentID) throws Exception {
         String sql = "DELETE FROM person WHERE PersonID = ?";
 
-        try (Connection conn = ConnectXamppMySQL.getConnect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (ConnectXamppMySQL connect = new ConnectXamppMySQL(); 
+         Connection conn = connect.getConnect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, studentID);
             int rowsDeleted = pstmt.executeUpdate();
@@ -126,7 +115,9 @@ public class PersonDAL {
     public static boolean addLecture(PersonDTO lecture) throws Exception {
         String sql = "INSERT INTO person (Firstname, Lastname, HireDate, EnrollmentDate) VALUES (?, ?,? ,NULL)";
 
-        try (Connection conn = ConnectXamppMySQL.getConnect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (ConnectXamppMySQL connect = new ConnectXamppMySQL(); 
+         Connection conn = connect.getConnect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, lecture.getFirstname());
             pstmt.setString(2, lecture.getLastname());
@@ -144,7 +135,9 @@ public class PersonDAL {
     public static boolean updateLecture(PersonDTO lecture) throws Exception {
         String sql = "UPDATE person SET Firstname = ?, Lastname = ?, HireDate = ? WHERE PersonID = ?";
 
-        try (Connection conn = ConnectXamppMySQL.getConnect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (ConnectXamppMySQL connect = new ConnectXamppMySQL(); 
+         Connection conn = connect.getConnect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, lecture.getFirstname());
             pstmt.setString(2, lecture.getLastname());
@@ -162,7 +155,9 @@ public class PersonDAL {
     public static boolean deleteLecture(int lectureID) throws Exception {
         String sql = "DELETE FROM person WHERE PersonID = ?";
 
-        try (Connection conn = ConnectXamppMySQL.getConnect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (ConnectXamppMySQL connect = new ConnectXamppMySQL(); 
+         Connection conn = connect.getConnect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, lectureID);
             int rowsDeleted = pstmt.executeUpdate();
