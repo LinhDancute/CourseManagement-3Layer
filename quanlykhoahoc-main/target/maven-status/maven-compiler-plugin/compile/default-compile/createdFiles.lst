@@ -60,7 +60,6 @@ GUI\JInternalFrameCourseManagement$11.class
 GUI\JInternalFrameDepartmentList$2.class
 GUI\JInternalFrameLecturesManagement$4.class
 GUI\JInternalFrameStudentGradeManagement$7.class
-GUI\JInternalFrameCourseList$3.class
 GUI\JInternalFrameStudentList$2.class
 BLL\CourseInstructorBLL.class
 GUI\JInternalFrameCourseInstructorManagement$4.class

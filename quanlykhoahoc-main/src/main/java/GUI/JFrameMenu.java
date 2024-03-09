@@ -214,9 +214,13 @@ public class JFrameMenu extends javax.swing.JFrame {
 
     //DANH SÁCH KHÓA HỌC
     private void menuitemCoursesListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemCoursesListActionPerformed
-        JInternalFrameCourseList courseList = new JInternalFrameCourseList();
-        DesktopShow.add(courseList);
-        courseList.setVisible(true);
+        try {
+            JInternalFrameCourseList courseList = new JInternalFrameCourseList();
+            DesktopShow.add(courseList);
+            courseList.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(JFrameMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuitemCoursesListActionPerformed
 
     //DANH SÁCH KHOA

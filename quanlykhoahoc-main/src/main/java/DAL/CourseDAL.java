@@ -204,6 +204,20 @@ public class CourseDAL extends MyConnectUnit{
             System.out.println("Lỗi không thể xóa course item !!");
         }
     }
+    
+    //LẤY DỮ LIỆU Tilte ỨNG VỚI CourseID
+    public String getCourseTitleByID(int courseID) throws Exception {
+        String title = null;
+        try {
+            ResultSet rs = this.Select("course", "CourseID = " + courseID);
+            if (rs.next()) {
+                title = rs.getString("Title");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Khong the lay Course Title theo CourseID !!!");
+        }
+        return title;
+    }
     public static void main(String args[]) {
         // TODO code application logic here
     }

@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ACER
@@ -365,9 +368,13 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
     }//GEN-LAST:event_buttonStudentListActionPerformed
 
     private void buttonCourseListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCourseListActionPerformed
-        JInternalFrameCourseList courseList = new JInternalFrameCourseList();
-        DesktopDetails.add(courseList);
-        courseList.setVisible(true);
+        try {
+            JInternalFrameCourseList courseList = new JInternalFrameCourseList();
+            DesktopDetails.add(courseList);
+            courseList.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(JInternalFrameStudentGradeManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonCourseListActionPerformed
 
     private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed

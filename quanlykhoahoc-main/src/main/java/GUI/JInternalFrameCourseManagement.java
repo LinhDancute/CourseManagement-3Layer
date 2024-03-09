@@ -13,7 +13,6 @@ import BLL.DTO.OnlineCourseDTO;
 import BLL.DTO.OnsiteCourseDTO;
 import BLL.DepartmentBLL;
 import java.awt.event.ActionEvent;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

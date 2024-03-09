@@ -87,10 +87,29 @@ public class CourseBLL {
         }
         return s + (max + 1);
     }
+    
+    public int getCourseIDByTitle(String selectedTitle) {
+        System.out.println("course List: " + listCourse);
+        if (listCourse != null) {
+            for (CourseDTO course : listCourse) {
+                if (course.getTitle().equals(selectedTitle)) {
+                    return course.getCourseID();
+                }
+            }
+        }
+        return -1; 
+    }
+    
+    
+    
     public static void main(String[] args) throws Exception {
         CourseBLL bll = new CourseBLL();
         bll.loadDSCourse("ASC");
         ArrayList<CourseDTO> ar = new ArrayList<>();
         getListCourse().forEach(s-> System.out.println(s));
+    }
+
+    public String getCourseTitleByID(int courseID) throws Exception {
+        return data.getCourseTitleByID(courseID);
     }
 }

@@ -5,7 +5,6 @@
 package GUI;
 
 import BLL.PersonBLL;
-import DAL.PersonDAL;
 import BLL.DTO.PersonDTO;
 import java.awt.event.MouseAdapter;
 import java.util.List;
@@ -24,7 +23,9 @@ public class PersonTable {
         model.setRowCount(0);
 
         // Lấy danh sách sinh viên từ cơ sở dữ liệu
-        List<PersonDTO> listStudent = PersonBLL.getListPerson(true);
+        PersonBLL personBLL = new PersonBLL();
+
+        List<PersonDTO> listStudent = personBLL.getListPerson(true);
 
         // Điền dữ liệu vào bảng
         int stt = 1;
@@ -51,8 +52,10 @@ public class PersonTable {
         DefaultTableModel model = (DefaultTableModel) tableLectures.getModel();
         model.setRowCount(0);
         
-        // Lấy danh sách sinh viên từ cơ sở dữ liệu
-        List<PersonDTO> listLectures = PersonBLL.getListPerson(false);
+        PersonBLL personBLL = new PersonBLL();
+
+        // Lấy danh sách giảng viên từ cơ sở dữ liệu
+        List<PersonDTO> listLectures = personBLL.getListPerson(false);
         
         // Điền dữ liệu vào bảng
         int stt = 1;

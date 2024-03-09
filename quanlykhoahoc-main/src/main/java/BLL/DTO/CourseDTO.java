@@ -47,9 +47,4 @@ public class CourseDTO {
     public void setDepartmentID(String DepartmentID) {
         this.DepartmentID = DepartmentID;
     }
-
-    
-    
-    
-    
 }

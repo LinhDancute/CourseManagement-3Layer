@@ -45,6 +45,19 @@ public class MyConnectUnit  {
     public ResultSet SelectCustom(String tableName,String Custom, String condition,String Groupby) throws Exception {
         return SelectCustom(tableName,Custom,condition,null,Groupby,null);
     }
+    
+    public ResultSet SelectCustom(String tableName,String Custom, String condition) throws Exception {
+        return SelectCustom(tableName,Custom,condition,null,null,null);
+    }
+    
+    public ResultSet SelectCustomJoin(String tableName, String Join, String orderby) throws Exception {
+        StringBuilder query = new StringBuilder("SELECT " + tableName + " FROM " + Join);
+        this.AddOderby(query, orderby);
+        query.append(";");
+        System.out.println("Generated SQL query: " + query);
+
+        return connect.excuteQuery(query.toString());
+    }
     public ResultSet SelectCustomJoin(String tableName,String Custom,String Join,String Orderby) throws Exception {
         return SelectCustom(tableName,Custom,null,Join,null,Orderby);
     }
@@ -54,10 +67,15 @@ public class MyConnectUnit  {
     public ResultSet SelectCustomGroupByOderby(String tableName,String Custom,String Groupby,String Oderby) throws Exception {
         return SelectCustom(tableName,Custom,null,null,Groupby,Oderby);
     }
-    public ResultSet SelectCustom(String tableName,String Custom, String condition) throws Exception {
-        return SelectCustom(tableName,Custom,condition,null,null,null);
-    }
+    
      public ResultSet SelectCustomOrderby(String tableName,String Custom, String condition,String orderby) throws Exception {
+//        StringBuilder query = new StringBuilder("SELECT " + Custom + " FROM " + tableName);
+//        this.AddCondition(query, condition);
+//        this.AddOderby(query, orderby);  
+//        query.append(";");
+//        System.out.println("Generated SQL query: " + query);
+//
+//        return connect.excuteQuery(query.toString());
         return SelectCustom(tableName,Custom,condition,null,null,orderby);
     }
     public ResultSet SelectCustom(String tableName,String Custom) throws Exception {

@@ -15,7 +15,6 @@ public class PersonDAL extends MyConnectUnit {
     public List<PersonDTO> getListPerson(boolean isStudent) throws Exception {
         ArrayList<PersonDTO> listPerson = new ArrayList<>();
         
-        MyConnectUnit myConnect = new MyConnectUnit();
          try {
             String condition;
             if (isStudent) {
@@ -25,7 +24,7 @@ public class PersonDAL extends MyConnectUnit {
                 // Lấy danh sách giảng viên (EnrollmentDate = Null)
                 condition = "EnrollmentDate IS NULL";
             }
-            ResultSet resultSet = myConnect.Select("person", condition);
+            ResultSet resultSet = this.Select("person", condition);
             while (resultSet.next()) {
                 PersonDTO person = new PersonDTO();
                 person.setPersonID(resultSet.getInt("PersonID"));
@@ -40,7 +39,7 @@ public class PersonDAL extends MyConnectUnit {
             e.printStackTrace();
         } finally {
             try {
-                myConnect.Close();
+                this.Close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

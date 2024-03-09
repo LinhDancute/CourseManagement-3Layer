@@ -26,7 +26,6 @@ public class JInternalFrameDepartmentList extends javax.swing.JInternalFrame {
     
     public JInternalFrameDepartmentList() {
         initComponents();
-        departmentBLL = new DepartmentBLL();
         loadData();
         
         // Đặt ActionListener cho textFind

@@ -25,23 +25,35 @@ public class CourseInstructorDAL extends MyConnectUnit{
     //LẤY DỮ LIỆU
     public ArrayList<CourseInstructorDTO> loadDatabase(String orderby) throws Exception {
         ArrayList<CourseInstructorDTO> list = new ArrayList<>();
+        System.out.println("array list ci: " + list);
         try {
-            ResultSet rs = this.SelectCustomOrderby("course as c , person as p, courseinstructor as ci",
-                    "ci.ID,c.CourseID,c.Title, p.PersonID, p.Lastname, p.Firstname",
-                    "c.CourseID=ci.CourseID AND p.PersonID=ci.PersonID",
-                    "ci.ID " + orderby);
+//            String query = "SELECT ci.CourseID, c.Title, ci.PersonID, CONCAT(p.FirstName, ' ', p.LastName) AS LectureName " +
+//                    "FROM courseinstructor ci " +
+//                    "JOIN course c ON ci.CourseID = c.CourseID " +
+//                    "JOIN person p ON ci.PersonID = p.PersonID " +
+//                    "ORDER BY " + orderby;
+//            ResultSet rs = this.SelectCustom("courseinstructor", "ci.CourseID, c.Title, ci.PersonID, p.FirstName, p.LastName", null, query);
+//                ResultSet rs = this.SelectCustomJoin(
+//                "couseinstructor as ci",
+//                "ci.CourseID, p.PersonID, p.LastName",
+//                "LEFT OUTER JOIN person as p on p.PersonID = ci.PersonID ",
+//                "ci.CourseID " + orderby
+//            );
+            ResultSet rs = this.Select("courseinstructor");
+            System.out.println("result rs: " + rs);
             while (rs.next()) {
                 CourseInstructorDTO csin = new CourseInstructorDTO(
-                        rs.getInt("ID"), 
                         rs.getInt("CourseID"),
-                        rs.getInt("PersonID"),
-                        rs.getString("Title"), 
-                        rs.getString("Lastname") + " " + rs.getString("Firstname")
+                        rs.getInt("PersonID")
+//                        rs.getString("TitleCourse")
+//                        rs.getString("LectureName")
                 );
                 list.add(csin);
+                System.out.println("Number of records retrieved1: " + list.size());
             }
+            System.out.println("Number of records retrieved2: " + list.size());
             rs.close();
-            this.Close();//dong ket noi;
+            this.Close(); // Close the database connection
 
         } catch (SQLException ex) {
             System.out.println("Khong the load database CourseInstructor: " + ex);
@@ -49,6 +61,7 @@ public class CourseInstructorDAL extends MyConnectUnit{
 
         return list;
     }
+
 
     //THÊM MỚI PHÂN CÔNG GIẢNG DẠY
     public void addCourseInstructor(CourseInstructorDTO csin) throws Exception {
@@ -64,14 +77,14 @@ public class CourseInstructorDAL extends MyConnectUnit{
     }
 
     //CẬP NHẬT PHÂN CÔNG GIẢNG DẠY
-    public void updateCourseInstructor(int id, CourseInstructorDTO csin) throws Exception {
+    public void updateCourseInstructor(CourseInstructorDTO csin) throws Exception {
         HashMap<String, Object> Updatevalues = new HashMap<String, Object>();
 
         Updatevalues.put("CourseID", csin.getCourseID());
         Updatevalues.put("PersonID", csin.getPersonID());
 
         try {
-            this.Update("courseinstructor", Updatevalues, "ID ='" + id + "'");
+            this.Update("courseinstructor", Updatevalues, null);
         } catch (SQLException ex) {
             System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
         }

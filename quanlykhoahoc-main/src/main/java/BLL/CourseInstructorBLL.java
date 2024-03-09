@@ -6,23 +6,35 @@ package BLL;
 
 import BLL.DTO.CourseInstructorDTO;
 import DAL.CourseInstructorDAL;
+import DAL.DBConnect.MyConnectUnit;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
  *
  * @author ACER
  */
-public class CourseInstructorBLL {
+public class CourseInstructorBLL extends MyConnectUnit{
     static ArrayList<CourseInstructorDTO> listCourseInstructor;
      private CourseInstructorDAL courseInstructorDAL=new CourseInstructorDAL();
+     
     public CourseInstructorBLL() {
+    }
+    
+    public static ArrayList<CourseInstructorDTO> getListCourseInstructor() {
+        return listCourseInstructor;
+    }
+    
+    public static void setListCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {
+        CourseInstructorBLL.listCourseInstructor = listCourseInstructor;
     }
     
     //LẤY DỮ LIỆU
     public void  loadDSCourseInstructor(String orderby) throws Exception{
-       
         if(listCourseInstructor==null) listCourseInstructor = new ArrayList<CourseInstructorDTO>();
+        System.out.println("list ci: " + listCourseInstructor);
         listCourseInstructor=courseInstructorDAL.loadDatabase(orderby);
+        System.out.println("listci2: " + listCourseInstructor);
     }
     
     //THÊM 
@@ -56,13 +68,13 @@ public class CourseInstructorBLL {
     }
     
     //SỬA
-    public void updateCourseInstructor(int id, CourseInstructorDTO csin) throws Exception{
+    public void updateCourseInstructor(CourseInstructorDTO csin) throws Exception{
          for(int i = 0 ; i < listCourseInstructor.size() ; i++)
         {
             if(listCourseInstructor.get(i).getCourseID()==csin.getCourseID())
             {
                 try {
-                    courseInstructorDAL.updateCourseInstructor(id,csin);
+                    courseInstructorDAL.updateCourseInstructor(csin);
                     listCourseInstructor.set(i, csin);               
                 } catch (Exception e) {
                     System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
@@ -72,23 +84,13 @@ public class CourseInstructorBLL {
                 return;
             }
         }
-    }
-    
-    public static void setListCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {
-        CourseInstructorBLL.listCourseInstructor = listCourseInstructor;
-    }
+    }   
 
-    public static ArrayList<CourseInstructorDTO> getListCourseInstructor() {
-        return listCourseInstructor;
-    }
-    public  void setlistCourseInstructor(ArrayList<CourseInstructorDTO> listCourseInstructor) {
-        CourseInstructorBLL.listCourseInstructor = listCourseInstructor;
-    }
+    public boolean isCourseInstructorExists(CourseInstructorDTO courseInstructor) throws Exception {
+        String condition = "CourseID = " + courseInstructor.getCourseID() +
+                           " AND PersonID = " + courseInstructor.getPersonID();
 
-    public  ArrayList<CourseInstructorDTO> getlistCourseInstructor() {
-        return listCourseInstructor;
-    }
-    public static void main(String args[]) {
-        // TODO code application logic here
+        ResultSet result = this.Select("courseinstructor", condition);
+        return result.next();
     }
 }
