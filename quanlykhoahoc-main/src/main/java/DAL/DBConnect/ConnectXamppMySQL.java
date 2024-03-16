@@ -5,10 +5,10 @@ package DAL.DBConnect;
 import java.sql.*;
 
 public class ConnectXamppMySQL {
-    String host="localhost";
-    String username="root";
+    String host="";
+    String username="";
     String password="";
-    String database="course-management";
+    String database="CourseManagement";
     
     Statement statement=null;
     Connection connect=null;
@@ -37,7 +37,7 @@ public class ConnectXamppMySQL {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cons = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/course-management", "root", "");
+                    "jdbc:mysql://localhost:3307/CourseManagement", "root", "");
         } catch (Exception e) {
             System.out.print("Kết nối lỗi");
         }
