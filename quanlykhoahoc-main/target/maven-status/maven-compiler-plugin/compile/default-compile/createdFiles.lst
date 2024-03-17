@@ -12,6 +12,7 @@ GUI\JInternalFrameStudentGradeManagement$9.class
 GUI\JInternalFrameLecturesManagement$2.class
 GUI\JInternalFrameStudentGradeManagement$4.class
 GUI\JInternalFrameStudentManagement$2.class
+GUI\JInternalFrameCourseManagement$12.class
 BLL\DTO\DepartmentDTO.class
 GUI\JInternalFrameCourseInstructorManagement$7.class
 GUI\JFrameMenu$11.class
@@ -72,6 +73,7 @@ GUI\JFrameMenu.class
 GUI\JInternalFrameLecturesManagement.class
 BLL\DTO\OfficeAssignmentDTO.class
 GUI\JInternalFrameLecturesManagement$1.class
+BLL\StudentGradeBLL.class
 DAL\CourseDAL.class
 GUI\JInternalFrameCourseInstructorManagement$3.class
 GUI\JInternalFrameStudentGradeManagement$8.class

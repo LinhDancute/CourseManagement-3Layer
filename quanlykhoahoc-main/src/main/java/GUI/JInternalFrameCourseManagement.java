@@ -11,7 +11,10 @@ import BLL.DTO.CourseInstructorDTO;
 import BLL.DTO.DepartmentDTO;
 import BLL.DTO.OnlineCourseDTO;
 import BLL.DTO.OnsiteCourseDTO;
+import BLL.DTO.StudentGradeDTO;
 import BLL.DepartmentBLL;
+import BLL.PersonBLL;
+import BLL.StudentGradeBLL;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +33,8 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     CourseBLL courseBLL = new CourseBLL();
     DepartmentBLL departmentBLL = new DepartmentBLL();
     CourseInstructorBLL courseInstructorBLL = new CourseInstructorBLL();
+    StudentGradeBLL studentGradeBLL = new StudentGradeBLL();
+    
     public JInternalFrameCourseManagement() throws Exception {
         initComponents();
         ShowDataBase("ASC");
@@ -178,6 +183,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         buttonOnsite = new javax.swing.JButton();
         buttonOnline = new javax.swing.JButton();
         buttonClose = new javax.swing.JButton();
+        buttonUpdate = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         DesktopDetails = new javax.swing.JDesktopPane();
@@ -301,7 +307,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(textCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,6 +380,13 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonUpdate.setText("Cập nhật");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -381,6 +394,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(buttonOnsite)
@@ -397,6 +411,8 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(buttonSave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonUpdate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Refresh)
@@ -406,7 +422,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                     .addComponent(buttonOnline))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonClose)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel1.setText("QUẢN LÝ KHÓA HỌC");
@@ -461,11 +477,13 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8))
         );
 
@@ -574,8 +592,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
                 CourseDTO onlineCourse = new OnlineCourseDTO(CourseID, Title, Credits, DepartmentID, Url);
 
                 courseBLL.addCourse(onlineCourse);
-                courseBLL.updateCourse(CourseID,onlineCourse);
-                JOptionPane.showMessageDialog(this, "Lưu khóa học Online thành công",
+                JOptionPane.showMessageDialog(this, "Thêm mới khóa học Online thành công",
                     "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 CourseDTO onsiteCourse = new OnsiteCourseDTO(CourseID, Title, Credits, DepartmentID, Location, Days, Time);
@@ -596,7 +613,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonSaveActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-//        ArrayList<GradeDTO> gradeList = new ArrayList<>();
+        ArrayList<StudentGradeDTO> studentGradeList = new ArrayList<>();
         ArrayList<CourseInstructorDTO> courseIntructorList = new ArrayList<>();
 
         int confirm = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa khóa học này?",
@@ -606,17 +623,17 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
             int courseID = Integer.parseInt(textCourseID.getText());
 
 
-//            gll.loadDSGrade();
-//            courseIntructorList.loadDSCourseInstructor("ASC");
-//            gradeList = gll.searchGradeWithCourseID(courseID);
-//            courseIntructorList = courseIntructorList.searchCourseID(courseID);
+            studentGradeBLL.loadDSGrade();
+            courseInstructorBLL.loadDSCourseInstructor();
+            studentGradeList = studentGradeBLL.searchGradeWithCourseID(courseID);
+            courseIntructorList = courseInstructorBLL.searchCourseID(courseID);
 
-//            if (!gradeList.isEmpty() || !courseIntructorList.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Khóa Học này đang có lịch học hoặc đang được phân công",
-//                        "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
-//            } else {
+            if (!studentGradeList.isEmpty() || !courseIntructorList.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Khóa Học này đang có lịch học hoặc đang được phân công",
+                        "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+            } else {
                 courseBLL.deleteCourse(courseID);//gọi Layer BLL xoá 
-//            }
+            }
 
             insertHeader();// chèn header cho table
             outModel(model, CourseBLL.getListCourse());// đổ data vào table
@@ -672,6 +689,45 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tableCourseMouseClicked
 
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        int CourseID = Integer.parseInt(textCourseID.getText());
+        String Title = textTitle.getText();
+        int Credits = Integer.parseInt(textCredit.getText());
+        String DepartmentID = comboboxDeparmentID.getSelectedItem().toString();
+        String Location = textLocation.getText();
+        String Url = textURL.getText();
+        String Time = textTime.getText();
+        
+        java.util.Date chosenDate = dateDays.getDate();
+        java.util.Date currentDate = new java.util.Date();
+        java.util.Date utilDays = (chosenDate != null) ? chosenDate : currentDate;
+        java.sql.Date Days = new java.sql.Date(utilDays.getTime());
+
+        try {
+            if (!textURL.getText().isEmpty()) {
+                CourseDTO onlineCourse = new OnlineCourseDTO(CourseID, Title, Credits, DepartmentID, Url);
+
+                courseBLL.updateCourse(CourseID,onlineCourse);
+                JOptionPane.showMessageDialog(this, "Cập nhật khóa học Online thành công",
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                CourseDTO onsiteCourse = new OnsiteCourseDTO(CourseID, Title, Credits, DepartmentID, Location, Days, Time);
+
+                courseBLL.addCourse(onsiteCourse);// gọi Layer Bll Thêm khóa học
+                courseBLL.updateCourse(CourseID,onsiteCourse);
+                JOptionPane.showMessageDialog(this, "Lưu khóa học Onsite thành công",
+                    "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            ClearAll();
+            RefreshDataBase("DESC");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Không thể tạo khóa học mới",
+                    "Thông báo lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DesktopDetails;
@@ -682,6 +738,7 @@ public class JInternalFrameCourseManagement extends javax.swing.JInternalFrame {
     private javax.swing.JButton buttonOnline;
     private javax.swing.JButton buttonOnsite;
     private javax.swing.JButton buttonSave;
+    private javax.swing.JButton buttonUpdate;
     private javax.swing.JComboBox<String> comboboxDeparmentID;
     private com.toedter.calendar.JDateChooser dateDays;
     private javax.swing.JLabel jLabel1;

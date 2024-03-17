@@ -118,7 +118,7 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
         cb.removeAllItems();
         // Hiển thị những giảng viên chưa được phân công cho khóa học đó
         for (PersonDTO person : allPersons) {
-            if (!assignedPersonIDs.contains(person.getPersonID())) {
+            if (assignedPersonIDs.contains(person.getPersonID())) {
                 String lectureName = person.getFirstname() + " " + person.getLastname();
                 
                 cb.addItem(lectureName);
@@ -569,7 +569,6 @@ public class JInternalFrameCourseInstructorManagement extends javax.swing.JInter
     private void tableCourseInstructorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCourseInstructorMouseClicked
         int selectedRow = tableCourseInstructor.getSelectedRow();
         ClearAll();
-
         if (selectedRow >= 0) {
             if (tableCourseInstructor.getRowSorter() != null) {
                 selectedRow = tableCourseInstructor.getRowSorter().convertRowIndexToModel(selectedRow);

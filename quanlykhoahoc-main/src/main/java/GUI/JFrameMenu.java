@@ -54,7 +54,7 @@ public class JFrameMenu extends javax.swing.JFrame {
         );
         DesktopShowLayout.setVerticalGroup(
             DesktopShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 544, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Danh mục quản lý");

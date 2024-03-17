@@ -85,9 +85,22 @@ public class CourseInstructorBLL extends MyConnectUnit{
         }
     }   
 
+    //KIỂM TRA (CourseID,PersonID) TỒN TẠI
     public boolean isCourseInstructorExists(int courseID, int personID) throws Exception {
         String condition = "CourseID = " + courseID + " AND PersonID = " + personID;
         ResultSet rs = this.SelectCustom("courseinstructor", "*", condition);
         return rs.next(); // Returns true if entry exists, false otherwise
+    }
+    
+    //TÌM CourseID
+    public ArrayList<CourseInstructorDTO> searchCourseID(int courseID)
+    {
+        ArrayList<CourseInstructorDTO> search = new ArrayList<>();
+        for(CourseInstructorDTO csin : listCourseInstructor)
+        {
+             if(  csin.getCourseID()==courseID  )
+                search.add(csin);
+        }
+        return search;
     }
 }
