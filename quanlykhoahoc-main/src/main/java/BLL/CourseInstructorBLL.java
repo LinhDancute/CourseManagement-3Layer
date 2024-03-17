@@ -30,10 +30,10 @@ public class CourseInstructorBLL extends MyConnectUnit{
     }
     
     //LẤY DỮ LIỆU
-    public void  loadDSCourseInstructor(String orderby) throws Exception{
+    public void  loadDSCourseInstructor() throws Exception{
         if(listCourseInstructor==null) listCourseInstructor = new ArrayList<CourseInstructorDTO>();
         System.out.println("list ci: " + listCourseInstructor);
-        listCourseInstructor=courseInstructorDAL.loadDatabase(orderby);
+        listCourseInstructor=courseInstructorDAL.loadDatabase();
         System.out.println("listci2: " + listCourseInstructor);
     }
     
@@ -68,29 +68,26 @@ public class CourseInstructorBLL extends MyConnectUnit{
     }
     
     //SỬA
-    public void updateCourseInstructor(CourseInstructorDTO csin) throws Exception{
+    public void updateCourseInstructor(CourseInstructorDTO csin, int courseID, int personID) throws Exception{
          for(int i = 0 ; i < listCourseInstructor.size() ; i++)
         {
             if(listCourseInstructor.get(i).getCourseID()==csin.getCourseID())
             {
                 try {
-                    courseInstructorDAL.updateCourseInstructor(csin);
+                    courseInstructorDAL.updateCourseInstructor(csin,courseID,personID);
                     listCourseInstructor.set(i, csin);               
                 } catch (Exception e) {
+                    e.printStackTrace();
                     System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
-                   
                 }
-                
                 return;
             }
         }
     }   
 
-    public boolean isCourseInstructorExists(CourseInstructorDTO courseInstructor) throws Exception {
-        String condition = "CourseID = " + courseInstructor.getCourseID() +
-                           " AND PersonID = " + courseInstructor.getPersonID();
-
-        ResultSet result = this.Select("courseinstructor", condition);
-        return result.next();
+    public boolean isCourseInstructorExists(int courseID, int personID) throws Exception {
+        String condition = "CourseID = " + courseID + " AND PersonID = " + personID;
+        ResultSet rs = this.SelectCustom("courseinstructor", "*", condition);
+        return rs.next(); // Returns true if entry exists, false otherwise
     }
 }

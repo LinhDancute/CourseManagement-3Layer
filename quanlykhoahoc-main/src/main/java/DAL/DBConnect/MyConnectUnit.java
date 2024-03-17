@@ -69,13 +69,6 @@ public class MyConnectUnit  {
     }
     
      public ResultSet SelectCustomOrderby(String tableName,String Custom, String condition,String orderby) throws Exception {
-//        StringBuilder query = new StringBuilder("SELECT " + Custom + " FROM " + tableName);
-//        this.AddCondition(query, condition);
-//        this.AddOderby(query, orderby);  
-//        query.append(";");
-//        System.out.println("Generated SQL query: " + query);
-//
-//        return connect.excuteQuery(query.toString());
         return SelectCustom(tableName,Custom,condition,null,null,orderby);
     }
     public ResultSet SelectCustom(String tableName,String Custom) throws Exception {
@@ -101,26 +94,25 @@ public class MyConnectUnit  {
         System.out.println(query);
         return connect.excuteUpdate(query.toString()) >0;
     }
-    public boolean Update(String tableName,HashMap<String,Object> columnValue,String condition) throws Exception {
-        // khai bao bien StringBuilder dề lưu câu truuy vấn
-         StringBuilder query = new StringBuilder("UPDATE " +tableName+" SET  ");
-        
-        
-       //Duyet va đưa thông ti giá tri cân update vào câu Query
-        for(String key :columnValue.keySet()){
-            query.append(key+" = '"+columnValue.get(key).toString() +"' ,");
-            
+    public boolean Update(String tableName, HashMap<String, Object> columnValue, String condition) throws Exception {
+        // khai bao bien StringBuilder để lưu câu truy vấn
+        StringBuilder query = new StringBuilder("UPDATE " + tableName + " SET ");
+
+        // Duyệt và đưa thông ti giá trị cân update vào câu Query
+        for (String key : columnValue.keySet()) {
+            query.append(key).append(" = '").append(columnValue.get(key)).append("', ");
         }
-        // cat bot ky tu , cuoi moi cau query
-        query=query.delete(query.length()-1, query.length());
-        //Đưa câu lệnh điều kiện vào câu query
-        this.AddCondition(query,condition);
-        // đưa giá trị của cột vào câu query
-        query.append(";");
-        // thuc khi cau lệnh bên ngoài
-         System.out.println(query+" ");
-        return connect.excuteUpdate(query.toString()) >0;
+        // Xóa ký tự ',' cuối cùng của câu truy vấn
+        query.delete(query.length() - 2, query.length());
+        // Đưa câu lệnh điều kiện vào câu query
+        query.append(" WHERE ").append(condition);
+
+        // Thực thi truy vấn
+        int rowsAffected = connect.excuteUpdate(query.toString());
+
+        return rowsAffected > 0;
     }
+
     public boolean Delete(String tableName,String condition) throws Exception {
         // khai bao bien StringBuilder dề lưu câu truuy vấn
          StringBuilder query = new StringBuilder("DELETE FROM " +tableName);

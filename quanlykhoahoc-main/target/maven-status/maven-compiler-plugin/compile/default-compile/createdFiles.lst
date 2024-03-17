@@ -21,12 +21,14 @@ GUI\JInternalFrameCourseInstructorManagement.class
 DAL\PersonDAL.class
 GUI\JInternalFrameCourseManagement$3.class
 GUI\JInternalFrameDepartmentList.class
+GUI\JInternalFrameStudentGradeManagement$9.class
 GUI\JInternalFrameLecturesManagement$2.class
 GUI\JInternalFrameLecturesList.class
 GUI\JInternalFrameStudentGradeManagement$4.class
 GUI\JInternalFrameStudentManagement$2.class
 BLL\DTO\DepartmentDTO.class
 DAL\DBConnect\ConnectXamppMySQL.class
+GUI\JInternalFrameCourseInstructorManagement$7.class
 GUI\JFrameMenu$11.class
 GUI\JInternalFrameCourseManagement.class
 GUI\JInternalFrameCourseManagement$1.class

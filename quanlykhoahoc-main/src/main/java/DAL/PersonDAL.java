@@ -46,6 +46,35 @@ public class PersonDAL extends MyConnectUnit {
         }
         return listPerson;
     }
+    
+    public ArrayList<Integer> getAssignedPersonIDs(int selectedCourseID) throws Exception {
+        ArrayList<Integer> assignedPersonIDs = new ArrayList<>();
+        try {
+            // Lấy PersonID ứng với CourseID
+            ResultSet rs = this.SelectCustom("courseinstructor", "PersonID", "CourseID = " + selectedCourseID);
+            while (rs.next()) {
+                assignedPersonIDs.add(rs.getInt("PersonID"));
+                System.out.println("assignedPersonIDs: "+assignedPersonIDs);
+            }
+
+            // Lấy tất cả PersonID từ person
+            ArrayList<Integer> allPersonIDs = new ArrayList<>();
+            ResultSet allPersonIDsResultSet = this.SelectCustom("person", "PersonID", "EnrollmentDate IS NULL");
+            while (allPersonIDsResultSet.next()) {
+                allPersonIDs.add(allPersonIDsResultSet.getInt("PersonID"));
+                System.out.println("all lecture before: "+allPersonIDs);
+            }
+
+            // Xóa PersonIDs đã tồn tại ứng với CourseIDs
+            allPersonIDs.removeAll(assignedPersonIDs);
+            System.out.println("all lecture after: "+allPersonIDs);
+            return allPersonIDs;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Error occurred while fetching assigned PersonIDs: " + e.getMessage());
+        }
+    }
+
 
     public static boolean addStudent(PersonDTO student) throws Exception {
     String sql = "INSERT INTO person (Firstname, Lastname, HireDate, EnrollmentDate) VALUES (?, ?, ?, ?)";

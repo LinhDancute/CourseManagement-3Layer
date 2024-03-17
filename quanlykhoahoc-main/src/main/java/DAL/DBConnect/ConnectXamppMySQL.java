@@ -59,20 +59,21 @@ public class ConnectXamppMySQL implements AutoCloseable {
         }
        return result;
     }
-    public int excuteUpdate(String query) throws Exception  {
-        int res =Integer.MIN_VALUE;
-        
-         try{
-                res=getStatement().executeUpdate(query);
-            }
-         catch(Exception e){
-            throw new Exception("Lỗi :"+e.getMessage()+" - "+query);
-            }
-            finally{
-                    this.Close();
-               }
-       return res;
+    public int excuteUpdate(String query) throws Exception {
+        int res = Integer.MIN_VALUE;
+
+        try {
+            res = getStatement().executeUpdate(query);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new Exception("Lỗi: Trùng lặp giá trị khóa chính - " + e.getMessage());
+        } catch (Exception e) {
+            throw new Exception("Lỗi: " + e.getMessage() + " - " + query);
+        } finally {
+            this.Close();
+        }
+        return res;
     }
+
     public void Close()throws SQLException{
         if(this.result!=null &&!this.result.isClosed()){
             this.result.close();

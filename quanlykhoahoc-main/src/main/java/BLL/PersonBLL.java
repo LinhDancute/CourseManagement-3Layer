@@ -3,8 +3,6 @@ package BLL;
 import DAL.PersonDAL;
 import BLL.DTO.PersonDTO;
 import DAL.DBConnect.MyConnectUnit;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -67,18 +65,9 @@ public class PersonBLL extends MyConnectUnit{
         return -1;
     }
 
-     public String getLectureNameByID(int personID) throws Exception {
-        String lectureName = null;
-        try {
-            ResultSet rs = this.Select("person", "PersonID = " + personID);
-            if (rs.next()) {
-                String firstName = rs.getString("FirstName");
-                String lastName = rs.getString("LastName");
-                lectureName = firstName + " " + lastName;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Khong the lay Lecture Name theo PersonID !!!");
-        }
-        return lectureName;
+    public ArrayList<Integer> getAssignedPersonIDs(int selectedCourseID) throws Exception {
+        ArrayList<Integer> assignedPersonIDs = new ArrayList<>();
+        assignedPersonIDs = data.getAssignedPersonIDs(selectedCourseID);
+        return assignedPersonIDs;
     }
 }

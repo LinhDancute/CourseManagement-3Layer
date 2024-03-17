@@ -108,8 +108,4 @@ public class CourseBLL {
         ArrayList<CourseDTO> ar = new ArrayList<>();
         getListCourse().forEach(s-> System.out.println(s));
     }
-
-    public String getCourseTitleByID(int courseID) throws Exception {
-        return data.getCourseTitleByID(courseID);
-    }
 }

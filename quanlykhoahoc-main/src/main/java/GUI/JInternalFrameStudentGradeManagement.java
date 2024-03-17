@@ -162,6 +162,11 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
         );
 
         buttonUpdate.setText("Sửa");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
 
         buttonDelete.setText("Xóa");
 
@@ -380,6 +385,10 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
     private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
         setVisible(false);
     }//GEN-LAST:event_buttonCloseActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
