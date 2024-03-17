@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class MyConnectUnit  {
     ConnectXamppMySQL connect;
     public MyConnectUnit() {
-        connect =new ConnectXamppMySQL("localhost","root","", "course-management");
+        connect =new ConnectXamppMySQL("localhost","root","", "CourseManagement");
     }
 
     public MyConnectUnit(ConnectXamppMySQL connect) {
