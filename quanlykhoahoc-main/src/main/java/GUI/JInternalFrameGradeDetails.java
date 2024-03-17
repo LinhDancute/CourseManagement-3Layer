@@ -7,6 +7,8 @@ package GUI;
 import java.awt.event.*;
 import java.sql.*;
 import java.sql.SQLException;
+
+import BLL.StudentGradeBLL;
 import DAL.DBConnect.ConnectXamppMySQL;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +22,8 @@ public class JInternalFrameGradeDetails extends JInternalFrame {
 
     public JInternalFrameGradeDetails() {
         initComponents();
+        bll = new StudentGradeBLL();
+        updateCombo();
     }
 
     private void initComponents() {
@@ -120,22 +124,12 @@ public class JInternalFrameGradeDetails extends JInternalFrame {
                     System.out.println("selected row: "+selectedRow);
 
                     if (selectedRow != -1 && selectedRow <= tableGradeDetails.getRowCount() -1){
-                        String EnrollmentID = (String) tableGradeDetails.getValueAt(selectedRow,0);
-                        String grade = (String) tableGradeDetails.getValueAt(selectedRow, 4);
-                        System.out.println("ID: "+EnrollmentID+" Grade: "+grade);
+                        String studentID = tableGradeDetails.getValueAt(selectedRow,1).toString();
+                        Object gradeObject = tableGradeDetails.getValueAt(selectedRow, 4);
+                        String grade = gradeObject != null ? gradeObject.toString() : "";
+                        System.out.println("ID: "+studentID+" Grade: "+grade);
 
-                        String sql = "UPDATE StudentGrade SET Grade = ? WHERE EnrollmentID = ?";
-                        try {
-                            PreparedStatement pst = ConnectXamppMySQL.getConnect().prepareStatement(sql);
-                            pst.setString(1, String.valueOf(grade));
-                            pst.setString(2, String.valueOf(EnrollmentID));
-                            pst.executeUpdate();
-                        } catch (SQLException ex) {
-                            throw new RuntimeException(ex);
-                        } catch (Exception ex) {
-                            throw new RuntimeException(ex);
-                        }
-
+                        bll.updateGrade(studentID,grade);
                     }
 
                 }
@@ -150,8 +144,9 @@ public class JInternalFrameGradeDetails extends JInternalFrame {
 
                 int selectedRow = tableGradeDetails.getSelectedRow();
                 if (selectedRow >= 0) {
-                    String studentID = (String) tableGradeDetails.getValueAt(selectedRow,0);
-                    String grade = (String) tableGradeDetails.getValueAt(selectedRow, 4);
+                    String studentID = tableGradeDetails.getValueAt(selectedRow,0).toString();
+                    Object gradeObject = tableGradeDetails.getValueAt(selectedRow, 4);
+                    String grade = gradeObject != null ? gradeObject.toString() : "";
                     System.out.println("Clicked ID: "+studentID+" Grade: "+grade);
                 }
             }
@@ -169,75 +164,19 @@ public class JInternalFrameGradeDetails extends JInternalFrame {
     private void comboOptionActionPerformed(ActionEvent evt){
         String selectedItem = (String) jComboBox1.getSelectedItem();
         System.out.println("selected Item: "+ selectedItem);
-        int courseID = getCourseID(selectedItem);
+        int courseID = bll.getCourseID(selectedItem);
         System.out.println("CourseID: " + courseID);
-        loadTableByID(courseID);
-    }
-
-    private int getCourseID(String courseTitle){
-        int courseID = -1;
-        String sql = "SELECT CourseID FROM `course` WHERE Title = ?";
-        try{
-            PreparedStatement pst = ConnectXamppMySQL.getConnect().prepareStatement(sql);
-            pst.setString(1, courseTitle);
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()){
-                courseID = rs.getInt("CourseID");
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return courseID;
+        DefaultTableModel model = bll.loadTableByCourseID(courseID);
+        tableGradeDetails.setModel(model); // Update the table model
     }
 
     private void updateCombo(){
-        String sql = "select * from course";
-        try {
-            PreparedStatement pst = ConnectXamppMySQL.getConnect().prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()){
-                jComboBox1.addItem(rs.getString("Title"));
-            }
-        } catch (Exception e){
-
+        if (bll != null) {
+            bll.updateCombo(jComboBox1);
+        } else {
+            System.out.println("BLL is null. Check initialization.");
         }
     }
-
-    private void loadTableByID(int courseID){
-        DefaultTableModel model = (DefaultTableModel) tableGradeDetails.getModel();
-        model.setRowCount(0);
-
-        String sql = "SELECT stg.EnrollmentID, stg.StudentID, p.FirstName, p.LastName, stg.Grade\n" +
-                "FROM studentgrade AS stg \n" +
-                "JOIN person AS p\n" +
-                "ON stg.StudentID = p.PersonID\n" +
-                "WHERE stg.CourseID = ?";
-
-        try {
-            PreparedStatement pst = ConnectXamppMySQL.getConnect().prepareStatement(sql);
-            pst.setString(1, String.valueOf(courseID));
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()){
-                String stt = rs.getString("EnrollmentID");
-                String studentID = rs.getString("StudentID");
-                String studentLastName = rs.getString("FirstName");
-                String studentFirstName = rs.getString("LastName");
-                String grade = rs.getString("Grade");
-
-                model.addRow(new Object[]{stt, studentID, studentFirstName, studentLastName, grade});
-            }
-        }  catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton buttonClose;
@@ -246,6 +185,7 @@ public class JInternalFrameGradeDetails extends JInternalFrame {
     private JLabel jLabel2;
     private JScrollPane jScrollPane1;
     private JTable tableGradeDetails;
+    private StudentGradeBLL bll;
 
     // End of variables declaration//GEN-END:variables
 }
