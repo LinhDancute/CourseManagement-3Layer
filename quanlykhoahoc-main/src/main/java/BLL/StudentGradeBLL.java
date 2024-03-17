@@ -62,6 +62,37 @@ public class StudentGradeBLL {
         return model;
     }
 
+    // Add the following method to the StudentGradeBLL class
+    public DefaultTableModel loadStudentGrades() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("STT");
+        model.addColumn("Mã ghi danh");
+        model.addColumn("Mã sinh viên");
+        model.addColumn("Mã khóa học");
+        model.addColumn("Điểm");
+        try {
+            ResultSet rs = dal.getAllStudentGrades(); // Modify this according to your DAL method
+            int stt = 1;
+            if (rs != null) {
+                while (rs.next()) {
+                    model.addRow(new Object[]{
+                            stt++,
+                            rs.getString("EnrollmentID"),
+                            rs.getString("StudentID"),
+                            rs.getString("CourseID"),
+                            rs.getString("Grade")
+                    });
+                }
+            } else {
+                System.out.println("ResultSet is null. Check DAL method.");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return model;
+    }
+
+
     public void updateGrade(String studentID, String grade) {
         if (validateInputGrade(grade)) {
             try {
@@ -77,5 +108,13 @@ public class StudentGradeBLL {
     private boolean validateInputGrade(String grade){
         String regex = "\\d+";
         return grade.matches(regex);
+    }
+
+    public void saveDataToDatabase(String enrollmentID, String studentID, String courseID, String grade){
+        try {
+            dal.saveData(enrollmentID,studentID,courseID,grade);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

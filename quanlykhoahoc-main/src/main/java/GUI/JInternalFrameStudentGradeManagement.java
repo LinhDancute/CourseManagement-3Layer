@@ -4,6 +4,15 @@
  */
 package GUI;
 
+import BLL.StudentGradeBLL;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
 /**
  *
  * @author ACER
@@ -13,8 +22,11 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
     /**
      * Creates new form JInternalFrameStudentGradeManagement
      */
+
     public JInternalFrameStudentGradeManagement() {
         initComponents();
+        bll = new StudentGradeBLL();
+        loadStudentGradesIntoTable();
     }
 
     /**
@@ -43,7 +55,7 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
         buttonUpdate = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
         buttonRefresh = new javax.swing.JButton();
-        buttonClose = new javax.swing.JButton();
+        buttonSave = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         buttonFind = new javax.swing.JButton();
         textFind = new javax.swing.JTextField();
@@ -164,10 +176,16 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
 
         buttonRefresh.setText("Làm mới");
 
-        buttonClose.setText("Đóng");
-        buttonClose.addActionListener(new java.awt.event.ActionListener() {
+        buttonSave.setText("Lưu");
+        buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCloseActionPerformed(evt);
+                try {
+                    buttonSaveActionPerformed(evt);
+                    DefaultTableModel model = bll.loadStudentGrades();
+                    tableStudentGrade.setModel(model);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -179,7 +197,7 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(buttonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -198,7 +216,7 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonRefresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonClose)
+                .addComponent(buttonSave)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -336,6 +354,42 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadStudentGradesIntoTable() {
+        DefaultTableModel model = bll.loadStudentGrades();
+        tableStudentGrade.setModel(model);
+
+        tableStudentGrade.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Get the selected row index
+                int selectedRowIndex = tableStudentGrade.getSelectedRow();
+                // Retrieve data from the model based on the selected row
+                String enrollmentID = model.getValueAt(selectedRowIndex, 1).toString();
+                String studentID = model.getValueAt(selectedRowIndex, 2).toString();
+                String courseID = model.getValueAt(selectedRowIndex, 3).toString();
+                String grade = model.getValueAt(selectedRowIndex, 4).toString();
+                // Set the retrieved data to the text fields
+                textEnrollmentID.setText(enrollmentID);
+                textStudentID.setText(studentID);
+                textCourseID.setText(courseID);
+                textGrade.setText(grade);
+            }
+        });
+    }
+    private void filterTable() {
+        String keyword = textFind.getText().trim();
+
+        if (!keyword.isEmpty()) {
+            DefaultTableModel model = (DefaultTableModel) tableStudentGrade.getModel();
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+            tableStudentGrade.setRowSorter(sorter);
+
+            RowFilter<DefaultTableModel, Object> rowFilter = RowFilter.regexFilter("(?i)" + keyword);
+            sorter.setRowFilter(rowFilter);
+        } else {
+            tableStudentGrade.setRowSorter(null);
+        }
+    }
     private void textEnrollmentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textEnrollmentIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textEnrollmentIDActionPerformed
@@ -345,7 +399,7 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
     }//GEN-LAST:event_textGradeActionPerformed
 
     private void textFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFindActionPerformed
-        // TODO add your handling code here:
+        filterTable();
     }//GEN-LAST:event_textFindActionPerformed
 
     private void textCourseIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCourseIDActionPerformed
@@ -370,14 +424,19 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
         courseList.setVisible(true);
     }//GEN-LAST:event_buttonCourseListActionPerformed
 
-    private void buttonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCloseActionPerformed
-        setVisible(false);
+    private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_buttonCloseActionPerformed
+        String enrollmentID = textEnrollmentID.getText();
+        String studentID = textStudentID.getText();
+        String courseID = textCourseID.getText();
+        String grade = textGrade.getText();
+
+        bll.saveDataToDatabase(enrollmentID, studentID, courseID, grade);
     }//GEN-LAST:event_buttonCloseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DesktopDetails;
-    private javax.swing.JButton buttonClose;
+    private javax.swing.JButton buttonSave;
     private javax.swing.JButton buttonCourseList;
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonFind;
@@ -403,5 +462,6 @@ public class JInternalFrameStudentGradeManagement extends javax.swing.JInternalF
     private javax.swing.JTextField textFind;
     private javax.swing.JTextField textGrade;
     private javax.swing.JTextField textStudentID;
+    private StudentGradeBLL bll;
     // End of variables declaration//GEN-END:variables
 }

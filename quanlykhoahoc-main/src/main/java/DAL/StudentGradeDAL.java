@@ -25,6 +25,13 @@ public class StudentGradeDAL {
         return pst.executeQuery();
     }
 
+    public ResultSet getAllStudentGrades() throws SQLException {
+        String query = "SELECT EnrollmentID, StudentID, CourseID, Grade FROM StudentGrade";
+        PreparedStatement pst = connection.prepareStatement(query);
+        ResultSet rs = pst.executeQuery();
+        return rs;
+    }
+
     public int getCourseID(String courseTitle) throws SQLException {
         String sql = "SELECT CourseID FROM `course` WHERE Title = ?";
         PreparedStatement pst = connection.prepareStatement(sql);
@@ -49,4 +56,17 @@ public class StudentGradeDAL {
         pst.setString(2, studentID);
         pst.executeUpdate();
     }
+
+    public void saveData(String enrollmentID, String studentID, String courseID, String grade) throws SQLException {
+        String sql = "UPDATE StudentGrade SET studentID=?, courseID=?, grade=? WHERE enrollmentID=?";
+        PreparedStatement pst = connection.prepareStatement(sql);
+
+        pst.setString(1, studentID);
+        pst.setString(2, courseID);
+        pst.setString(3, grade);
+        pst.setString(4, enrollmentID);
+
+        pst.executeUpdate();
+    }
+
 }
